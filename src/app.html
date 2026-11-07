@@ -14,158 +14,162 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#FFF4E3;--card:#fff;--ink:#3A2E2A;--mut:#8A7A70;--or:#FF7A45;--or2:#FFB38F;--gr:#2FB874;--pu:#7B61FF;--ye:#FFC93C;--bl:#3BA7F0;--line:#F0E0CC;--r:22px}
+:root{--bg:#FFF4E3;--card:#fff;--ink:#3A2E2A;--mut:#8A7A70;--or:#FF7A45;--or2:#FFB38F;--gr:#2FB874;--pu:#7B61FF;--ye:#FFC93C;--line:#F0E0CC;--r:22px}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{margin:0;background:var(--bg);color:var(--ink);font:500 16px/1.4 Nunito,system-ui,sans-serif;overscroll-behavior:none}
 body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 h1,h2,h3,.big{font-family:"Baloo 2",Nunito,system-ui,sans-serif;margin:0;line-height:1.1}
 button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+img{-webkit-user-drag:none;user-select:none}
 .hide{display:none!important}
-.scr{max-width:560px;margin:0 auto;padding:16px 16px 120px;min-height:100vh;animation:in .25s ease}
+.scr{max-width:560px;margin:0 auto;padding:16px 16px 130px;min-height:100vh;animation:in .25s ease}
 @keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 20px;border-radius:18px;background:var(--or);color:#fff;font:800 18px "Baloo 2",Nunito,sans-serif;box-shadow:0 5px 0 #D85A28;transition:transform .08s}
 .btn:active{transform:translateY(3px);box-shadow:0 2px 0 #D85A28}
 .btn.gr{background:var(--gr);box-shadow:0 5px 0 #1E8C55}.btn.pu{background:var(--pu);box-shadow:0 5px 0 #5640C9}
 .btn.sec{background:#fff;color:var(--ink);box-shadow:0 4px 0 var(--line);border:2px solid var(--line)}
-.btn.huge{width:100%;padding:20px;font-size:26px;border-radius:26px}
+.btn.huge{width:100%;padding:18px;font-size:26px;border-radius:26px}
+.btn.sm{padding:8px 14px;font-size:15px}
 .btn[disabled]{opacity:.45;pointer-events:none}
+.btn img{width:34px;height:34px}
 .card{background:var(--card);border-radius:var(--r);padding:16px;box-shadow:0 3px 0 var(--line);margin:12px 0}
 .mut{color:var(--mut)}.small{font-size:14px}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
 .pill{background:#fff;border-radius:99px;padding:6px 14px;font:800 20px "Baloo 2",sans-serif;box-shadow:0 3px 0 var(--line);display:inline-flex;gap:6px;align-items:center}
-.ico-btn{width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 var(--line);font-size:24px;display:inline-flex;align-items:center;justify-content:center}
-input[type=text],input[type=number],select{font:inherit;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:#fff;width:100%}
+.ico-btn{width:48px;height:48px;border-radius:16px;background:#fff;box-shadow:0 3px 0 var(--line);font-size:24px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
+input[type=text],input[type=number]{font:inherit;padding:12px 14px;border-radius:14px;border:2px solid var(--line);background:#fff;width:100%}
 label.opt{display:flex;align-items:center;gap:12px;padding:12px;border-radius:16px;background:#FFF9F1;margin:6px 0;cursor:pointer}
-label.opt input{width:22px;height:22px;accent-color:var(--or)}
-label.opt input.sw{width:50px;height:30px}
 .seg{display:flex;background:#FFF0DD;border-radius:14px;padding:4px;gap:4px}
 .seg button{flex:1;padding:10px 6px;border-radius:11px;font-weight:800}
 .seg button.on{background:#fff;box-shadow:0 2px 0 var(--line)}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chip{padding:8px 12px;border-radius:99px;background:#FFF0DD;font-weight:700;font-size:15px}
+.chip{padding:6px 12px 6px 6px;border-radius:99px;background:#FFF0DD;font-weight:700;font-size:15px;display:inline-flex;align-items:center;gap:6px}
+.chip img{width:26px;height:26px}
 .chip.on{background:var(--or);color:#fff}
+.sw{appearance:none;-webkit-appearance:none;width:50px;height:30px;border-radius:99px;background:#E4D6C4;position:relative;transition:.2s;flex:0 0 auto;cursor:pointer;margin:0}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw:checked{background:var(--gr)}.sw:checked::after{left:23px}
 
-/* home */
-.hero{text-align:center;padding:30px 10px 10px}
-.hero .chef{font-size:110px;line-height:1;animation:bob 2.4s ease-in-out infinite}
+/* awatary dzieci */
+.av{display:inline-flex;align-items:center;gap:6px;padding:4px 12px 4px 4px;border-radius:99px;color:#fff;font:800 17px "Baloo 2",sans-serif}
+.av img{width:32px;height:32px;background:#fff;border-radius:50%;padding:2px}
+.kidpick{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0}
+.kidpick button{background:#fff;border-radius:22px;padding:14px 8px;box-shadow:0 4px 0 var(--line);border:4px solid transparent;font:800 20px "Baloo 2",sans-serif}
+.kidpick button img{width:70px;height:70px;display:block;margin:0 auto 4px}
+.kidpick button.on{border-color:var(--gr);background:#F1FCF5}
+.kidcard{border-left:8px solid var(--or)}
+
+/* ekran główny */
+.hero{text-align:center;padding:24px 10px 6px}
+.hero .chef{width:130px;height:130px;animation:bob 2.4s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-3deg)}}
-.hero h1{font-size:40px;margin-top:8px;color:var(--or)}
+.hero h1{font-size:38px;margin-top:8px;color:var(--or)}
 .parent-link{position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:5}
 
-/* hunt */
+/* polowanie */
 .zones{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:none}
-.zones button{flex:0 0 auto;padding:10px 16px;border-radius:18px;background:#fff;box-shadow:0 3px 0 var(--line);font:800 18px "Baloo 2",sans-serif;display:flex;gap:6px;align-items:center}
+.zones::-webkit-scrollbar{display:none}
+.zones button{flex:0 0 auto;padding:8px 14px;border-radius:18px;background:#fff;box-shadow:0 3px 0 var(--line);font:800 17px "Baloo 2",sans-serif;display:flex;gap:6px;align-items:center}
 .zones button.on{background:var(--pu);color:#fff;box-shadow:0 3px 0 #5640C9}
+.zones b{background:rgba(0,0,0,.12);border-radius:99px;padding:0 7px;font-size:13px}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.tile{position:relative;background:#fff;border-radius:22px;padding:12px 4px 8px;box-shadow:0 4px 0 var(--line);text-align:center;transition:transform .12s}
+.tile{position:relative;background:#fff;border-radius:22px;padding:10px 4px 8px;box-shadow:0 4px 0 var(--line);text-align:center;transition:transform .12s}
 .tile:active{transform:scale(.94)}
-.tile .e{font-size:50px;line-height:1.1;display:block}
+.tile img{width:76px;height:76px;display:block;margin:0 auto}
 .tile .l{font-size:13px;font-weight:700;color:var(--mut);display:block;margin-top:2px;min-height:18px;line-height:1.15}
 body.big .tile .l{font-size:15px;color:var(--ink)}
 .tile.found{background:#E3F8EC;box-shadow:0 4px 0 #A6E3C2}
 .tile.found::after{content:"✔";position:absolute;top:6px;right:8px;width:28px;height:28px;border-radius:50%;background:var(--gr);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;font-size:16px}
 .tile.pop{animation:pop .4s}
 @keyframes pop{40%{transform:scale(1.15) rotate(4deg)}}
-.quest{display:flex;align-items:center;gap:12px;background:#fff;border-radius:20px;padding:10px 14px;margin:0 0 10px;box-shadow:0 3px 0 var(--line);border:3px dashed var(--ye)}
-.quest .blob{width:44px;height:44px;border-radius:50%;flex:0 0 auto;border:3px solid rgba(0,0,0,.08)}
 .dock{position:fixed;left:0;right:0;bottom:0;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:linear-gradient(transparent,var(--bg) 30%);z-index:4}
 .dock>div{max-width:560px;margin:0 auto}
 .progress{height:14px;border-radius:9px;background:#fff;box-shadow:inset 0 2px 0 var(--line);overflow:hidden;margin:4px 0 12px}
 .progress>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ye),var(--or));border-radius:9px;transition:width .4s}
 
-/* choose */
+/* wybór */
 .choices{display:grid;gap:14px}
-.dish{display:flex;align-items:center;gap:16px;background:#fff;border-radius:26px;padding:16px;box-shadow:0 5px 0 var(--line);text-align:left;border:4px solid transparent;transition:transform .12s}
-.dish .e{font-size:72px;line-height:1}
-.dish h3{font-size:24px}
+.dish{display:flex;align-items:center;gap:16px;background:#fff;border-radius:26px;padding:14px;box-shadow:0 5px 0 var(--line);text-align:left;border:4px solid transparent;transition:transform .12s}
+.dish img{width:92px;height:92px;flex:0 0 auto}
+.dish h3{font-size:23px}
 .dish.sel{border-color:var(--gr);transform:scale(1.02);background:#F1FCF5}
-.dish:active{transform:scale(.97)}
 
-/* reward */
-.reward{text-align:center;padding-top:30px}
-.reward .plate{font-size:150px;line-height:1;display:inline-block;animation:spin 1s cubic-bezier(.3,1.6,.6,1)}
+/* nagroda */
+.reward{text-align:center;padding-top:24px}
+.reward .plate{width:190px;height:190px;animation:spin 1s cubic-bezier(.3,1.6,.6,1)}
 @keyframes spin{from{transform:scale(0) rotate(-180deg)}}
-.reward h1{font-size:44px;color:var(--or)}
+.reward h1{font-size:42px;color:var(--or)}
 .reward h2{font-size:30px;margin:8px 0}
 .sticker-new{display:inline-flex;align-items:center;gap:10px;background:#fff;border-radius:20px;padding:10px 18px;box-shadow:0 4px 0 var(--line);margin:14px 0;font:800 20px "Baloo 2",sans-serif}
-.sticker-new span{font-size:46px}
+.sticker-new span{font-size:46px;animation:spin 1s .8s both cubic-bezier(.3,1.6,.6,1)}
 
 /* album */
 .album{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.album div{aspect-ratio:1;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:36px;box-shadow:0 3px 0 var(--line)}
+.album div{aspect-ratio:1;border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 3px 0 var(--line)}
 .album div.no{filter:grayscale(1);opacity:.25}
 .badges{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .badge{background:#fff;border-radius:18px;padding:10px;display:flex;gap:10px;align-items:center;box-shadow:0 3px 0 var(--line)}
-.badge b{font-size:34px}.badge.no{opacity:.35;filter:grayscale(1)}
+.badge b{font-size:32px}.badge.no{opacity:.35;filter:grayscale(1)}
 
-/* modal */
+/* okna */
 .modal{position:fixed;inset:0;background:rgba(58,46,42,.45);display:flex;align-items:flex-end;justify-content:center;z-index:20;animation:fade .2s}
 @keyframes fade{from{opacity:0}}
-.sheet{background:var(--bg);width:100%;max-width:560px;border-radius:30px 30px 0 0;padding:22px 18px calc(22px + env(safe-area-inset-bottom));text-align:center;animation:up .3s cubic-bezier(.2,1.2,.4,1);max-height:92vh;overflow:auto}
+.sheet{background:var(--bg);width:100%;max-width:560px;border-radius:30px 30px 0 0;padding:20px 18px calc(22px + env(safe-area-inset-bottom));text-align:center;animation:up .3s cubic-bezier(.2,1.2,.4,1);max-height:94vh;overflow:auto}
 @keyframes up{from{transform:translateY(100%)}}
-.sheet .e{font-size:90px;line-height:1.1}
+.sheet .pic{width:120px;height:120px}
 .sheet h2{font-size:30px}
-.word{font:800 42px "Baloo 2",sans-serif;color:var(--pu)}
+.who{margin:0 0 8px}
+.word{font:800 40px "Baloo 2",sans-serif;color:var(--pu)}
 .opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
-.opts button{background:#fff;border-radius:20px;padding:12px 4px;box-shadow:0 4px 0 var(--line);font-size:54px;line-height:1.1}
+.opts button{background:#fff;border-radius:20px;padding:14px 4px;box-shadow:0 4px 0 var(--line);font:800 26px "Baloo 2",sans-serif}
 .opts.txt{grid-template-columns:1fr}
-.opts.txt button{font:800 24px "Baloo 2",sans-serif;padding:14px}
-.opts button.ok{background:#E3F8EC}.opts button.bad{animation:shake .4s;background:#FFE4E0}
+.opts.letters button{font-size:54px;padding:6px}
+.opts.colors button{height:96px;border:6px solid #fff}
+.opts button.ok{background:#E3F8EC;outline:5px solid var(--gr)}.opts button.bad{animation:shake .4s;background:#FFE4E0}
 @keyframes shake{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
-.count{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:14px 0}
-.count button{font-size:44px;opacity:.25;filter:grayscale(1);transition:all .15s}
-.count button.on{opacity:1;filter:none;transform:scale(1.1)}
-.numbig{font:800 64px "Baloo 2",sans-serif;color:var(--or)}
+.count{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin:12px 0}
+.count button img{width:54px;height:54px;opacity:.25;filter:grayscale(1);transition:all .15s}
+.count button.on img{opacity:1;filter:none;transform:scale(1.1)}
+.numbig{font:800 60px "Baloo 2",sans-serif;color:var(--or);line-height:1}
+.explain{background:#fff;border-radius:16px;padding:10px 14px;margin:10px 0;font-weight:700}
 .pin-dots{display:flex;justify-content:center;gap:14px;margin:16px 0}
 .pin-dots i{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--or2)}
 .pin-dots i.on{background:var(--or);border-color:var(--or)}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:300px;margin:0 auto}
 .keypad button{padding:16px 0;border-radius:18px;background:#fff;box-shadow:0 3px 0 var(--line);font:800 26px "Baloo 2",sans-serif}
 
-/* parent */
+/* rodzic */
 .ph{font-size:20px;margin:0 0 8px;display:flex;align-items:center;gap:8px}
 .rlist .ri{display:flex;align-items:center;gap:10px;padding:8px 4px;border-bottom:1px solid var(--line)}
 .rlist .ri:last-child{border:0}
-.rlist .ri .e{font-size:28px;width:36px;text-align:center}
+.rlist .ri img{width:38px;height:38px;flex:0 0 auto}
 .rlist .ri .t{flex:1;min-width:0}
 .rlist .ri .t b{display:block;font-size:15px}
-.sw{appearance:none;width:50px;height:30px;border-radius:99px;background:#E4D6C4;position:relative;transition:.2s;flex:0 0 auto;cursor:pointer}
-.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
-.sw:checked{background:var(--gr)}.sw:checked::after{left:23px}
-details.card summary{font:800 20px "Baloo 2",sans-serif;cursor:pointer;list-style:none;display:flex;justify-content:space-between}
-details.card summary::after{content:"▾";color:var(--mut)}
+details.card summary{font:800 20px "Baloo 2",sans-serif;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
+details.card summary::-webkit-details-marker{display:none}
+details.card summary::after{content:"▾";color:var(--mut);margin-left:8px}
 details[open].card summary::after{content:"▴"}
 .recipe li{margin:6px 0}
 .have{color:var(--gr);font-weight:800}.miss{color:#D9502F;font-weight:800}
-.approve .ri{cursor:pointer}
 .confetti{position:fixed;inset:0;pointer-events:none;z-index:30;overflow:hidden}
 .confetti i{position:absolute;top:-40px;font-style:normal;font-size:30px;animation:fall linear forwards}
 @keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
 .toast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 18px;border-radius:99px;font-weight:700;z-index:40;animation:fade .2s}
 .steps{display:flex;justify-content:center;gap:6px;margin:6px 0 14px}
 .steps i{width:10px;height:10px;border-radius:50%;background:var(--line)}.steps i.on{background:var(--or);width:26px;border-radius:9px}
+.bigpick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.bigpick button{background:#fff;border-radius:20px;padding:12px 0;box-shadow:0 4px 0 var(--line);font:800 30px "Baloo 2",sans-serif;border:4px solid transparent}
+.bigpick button.on{border-color:var(--or);background:#FFF0E8}
+.langpick{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.langpick button{background:#fff;border-radius:18px;padding:12px;box-shadow:0 4px 0 var(--line);font:800 18px "Baloo 2",sans-serif;border:4px solid transparent;text-align:left}
+.langpick button.on{border-color:var(--or);background:#FFF0E8}
+.langpick button span{font-size:26px;margin-right:6px}
 </style>
 </head>
 <body>
-
-<!-- ============ PIERWSZE URUCHOMIENIE (rodzic) ============ -->
 <section id="setup" class="scr hide"></section>
-
-<!-- ============ EKRAN GŁÓWNY (dziecko) ============ -->
-<section id="home" class="scr hide">
-  <div class="top"><span class="pill" id="h-stars">⭐ 0</span><button class="ico-btn" id="h-album" aria-label="Album">📒</button></div>
-  <div class="hero">
-    <div class="chef">🧑‍🍳</div>
-    <h1 id="h-hi">Cześć, Szefie!</h1>
-    <p class="mut big" style="font-size:20px" id="h-meal"></p>
-  </div>
-  <button class="btn huge" id="h-start" style="margin-top:20px">🔍 Szukamy jedzenia!</button>
-  <button class="btn sec huge" id="h-album2" style="margin-top:16px;font-size:22px">📒 Moje naklejki</button>
-  <button class="ico-btn parent-link" id="h-parent" aria-label="Tryb rodzica">🔒</button>
-</section>
-
-<!-- ============ POLOWANIE ============ -->
+<section id="home" class="scr hide"></section>
 <section id="hunt" class="scr hide">
   <div class="top">
     <button class="ico-btn" id="u-home" aria-label="Wróć">🏠</button>
@@ -173,7 +177,6 @@ details[open].card summary::after{content:"▴"}
     <button class="ico-btn" id="u-say" aria-label="Powtórz polecenie">🔊</button>
   </div>
   <div class="zones" id="u-zones"></div>
-  <div id="u-quest"></div>
   <div class="grid" id="u-grid"></div>
   <div class="dock"><div>
     <div class="row" style="justify-content:space-between"><b class="big" style="font-size:18px" id="u-dishes"></b><span class="small mut" id="u-found"></span></div>
@@ -181,30 +184,17 @@ details[open].card summary::after{content:"▴"}
     <button class="btn gr huge" id="u-done" disabled>🍽️ Gotowe!</button>
   </div></div>
 </section>
-
-<!-- ============ RODZIC ZATWIERDZA ============ -->
-<section id="approve" class="scr hide approve"></section>
-
-<!-- ============ WYBÓR DANIA ============ -->
+<section id="approve" class="scr hide"></section>
 <section id="choose" class="scr hide">
-  <div class="top"><button class="ico-btn" id="c-back" aria-label="Wróć">⬅️</button><span class="pill">🍽️</span><span style="width:48px"></span></div>
-  <h1 style="font-size:34px;text-align:center;margin:6px 0 16px" id="c-title">Co dziś zjesz?</h1>
+  <div class="top"><button class="ico-btn" id="c-back" aria-label="Wróć">⬅️</button><span id="c-team"></span><span style="width:48px"></span></div>
+  <h1 style="font-size:32px;text-align:center;margin:6px 0 16px" id="c-title">Co dziś zjesz?</h1>
   <div class="choices" id="c-list"></div>
   <div class="dock"><div><button class="btn gr huge" id="c-ok" disabled>✅ To wybieram!</button></div></div>
 </section>
-
-<!-- ============ NAGRODA ============ -->
 <section id="reward" class="scr hide reward"></section>
-
-<!-- ============ ALBUM ============ -->
 <section id="album" class="scr hide"></section>
-
-<!-- ============ TRYB RODZICA ============ -->
 <section id="parent" class="scr hide"></section>
-
-<!-- ============ PRZEPIS ============ -->
 <section id="recipe" class="scr hide"></section>
-
 <div id="modal"></div>
 
 <script>
@@ -214,62 +204,89 @@ const $=id=>document.getElementById(id);
 const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const rnd=a=>a[Math.floor(Math.random()*a.length)];
 const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 
 /* ---------- dane ---------- */
-// P[id] = [nazwa, emoji, strefa, kolor, en, de, es]
+// P[id] = [nazwa, strefa, kolor, en, de, es, słowo, dopełniacz l.mn., błędne zapisy, podpowiedź pisowni]
 const P=D.P, R=D.R;
-const ZONES={L:["Lodówka","🧊"],W:["Warzywa i owoce","🧺"],S:["Szafka","🗄️"],Z:["Zamrażarka","❄️"]};
-const COL={r:["czerwonego","#EF4444","red","rot","rojo"],y:["żółtego","#FACC15","yellow","gelb","amarillo"],g:["zielonego","#22C55E","green","grün","verde"],
-  o:["pomarańczowego","#FB923C","orange","orange","naranja"],w:["białego","#FFFFFF","white","weiß","blanco"],b:["brązowego","#92582F","brown","braun","marrón"],p:["fioletowego","#8B5CF6","purple","lila","morado"]};
-const LANGS={en:["angielsku","en-GB",4],de:["niemiecku","de-DE",5],es:["hiszpańsku","es-ES",6]};
+const pimg=k=>`img/${k}.webp`, eimg=c=>`img/e-${c}.webp`;
+const ZONES={L:["Lodówka","🧊"],V:["Warzywa","🥕"],F:["Owoce","🍎"],S:["Szafka","🗄️"],C:["Słodycze","🍪"],Z:["Zamrażarka","❄️"]};
+const COL={r:["czerwony","#EF4444","red","rot","rojo"],y:["żółty","#FACC15","yellow","gelb","amarillo"],g:["zielony","#22C55E","green","grün","verde"],
+  o:["pomarańczowy","#FB923C","orange","orange","naranja"],w:["biały","#FFFFFF","white","weiß","blanco"],b:["brązowy","#92582F","brown","braun","marrón"],
+  p:["fioletowy","#8B5CF6","purple","lila","morado"],k:["różowy","#F9A8D4","pink","rosa","rosa"]};
+const LANGS={en:["angielsku","en-GB",3,"🇬🇧","Angielski"],de:["niemiecku","de-DE",4,"🇩🇪","Niemiecki"],es:["hiszpańsku","es-ES",5,"🇪🇸","Hiszpański"]};
+const NUMS={en:["zero","one","two","three","four","five","six","seven","eight","nine","ten"],de:["null","eins","zwei","drei","vier","fünf","sechs","sieben","acht","neun","zehn"],
+  es:["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve","diez"]};
 const MEALS={s:["Śniadanie","🍳"],o:["Obiad","🍲"],k:["Kolacja","🌙"],d:["Deser","🍰"]};
-// liczebniki do „Ile masz …?”
-const COUNT={jajka:"jajek",jablko:"jabłek",banan:"bananów",pomidory:"pomidorów",marchew:"marchewek",ziemniaki:"ziemniaków",cebula:"cebul",ogorek:"ogórków",
-  papryka:"papryk",gruszka:"gruszek",cytryna:"cytryn",awokado:"awokado",parowki:"parówek",bulki:"bułek",mango:"mango",bataty:"batatów",jogurt:"jogurtów"};
-const STICKERS=["🦁","🐸","🦄","🐼","🐙","🦊","🐝","🦖","🐬","🐧","🦉","🐢","🐨","🦋","🐳","🦒","🐯","🐰","🦜","🐞","🚀","🌈","⚽","🎈","🏆","🍩","🌟","🎸","🚂","👑"];
+const KIDCOL=["#FF7A45","#7B61FF","#2FB874","#E5489B"];
+const STICKERS=["🦁","🐸","🦄","🐼","🐙","🦊","🐝","🦖","🐬","🐧","🦉","🐢","🐨","🦋","🐳","🦒","🐯","🐰","🦜","🐞","🚀","🌈","⚽","🎈","🏆","🍩","🌟","🎸","🚂","👑","🐶","🐱","🐵","🦕","🐮","🐷","🦀","🌻","🍀","🎁"];
 const PRAISE=["Brawo!","Super!","Świetnie!","Ekstra!","Wow!","Rewelacja!","Mistrzostwo!"];
+const DIGRAPH=/^(sz|cz|ch|rz|dz|dż|dź)/i;
+const LETTERS="ABCDEFGHIJKLMNOPRSTUWZ".split("");
 
 /* ---------- zapis ---------- */
-const DEF={pin:"",name:"",level:"small",meal:"o",maxT:0,noSweet:true,alg:[],zones:["L","W","S"],staples:["maka","proszek","cynamon","bulion","bulka_tarta","curry","kakao","czosnek"],
-  off:[],n:3,lang:"en",voice:true,approve:true};
-let S=Object.assign({},DEF), G={stars:0,stickers:[],words:[],hunts:0,hist:{}};
+const DEF={pin:"",kids:[],lang:"en",voice:true,sound:true,meal:"o",maxT:0,noSweet:true,alg:[],zones:["L","V","F","S","Z"],
+  staples:["maka","proszek","cynamon","bulion","bulka_tarta","curry","czosnek","cukier","sol","olej","woda"],off:[],n:3,approve:true};
+let S=Object.assign({},DEF), G={stars:0,stickers:[],words:[],hunts:0,team:0,hist:{}};
 try{Object.assign(S,JSON.parse(localStorage.getItem("ms_set")||"{}"));Object.assign(G,JSON.parse(localStorage.getItem("ms_game")||"{}"))}catch(e){}
-const gf=(m,f)=>S.girl?f:m;
+// przejście z wersji 1 (jedno dziecko, strefa W)
+if(!S.kids.length&&S.name)S.kids=[{name:S.name,girl:!!S.girl,level:S.level||"small"}];
+if(S.zones.includes("W"))S.zones=[...new Set(S.zones.filter(z=>z!=="W").concat(["V","F"]))];
+["sol","olej","woda","cukier"].forEach(k=>{if(!S._v2&&!S.staples.includes(k))S.staples.push(k)});S._v2=1;
 const save=()=>{try{localStorage.setItem("ms_set",JSON.stringify(S));localStorage.setItem("ms_game",JSON.stringify(G))}catch(e){}};
+
+/* ---------- dzieci i gramatyka ---------- */
+let TEAM=[]; // dzieci w bieżącym polowaniu (indeksy)
+const kid=i=>S.kids[i]||{name:"",girl:false,level:"small"};
+const many=()=>TEAM.length>1;
+const allGirls=()=>TEAM.every(i=>kid(i).girl);
+const gf=(k,m,f)=>kid(k).girl?f:m;                         // forma dla jednego dziecka
+const tf=(one_m,one_f,pl_m,pl_f)=>many()?(allGirls()?pl_f:pl_m):(kid(TEAM[0]).girl?one_f:one_m); // forma dla drużyny
+const names=list=>{const n=list.map(i=>kid(i).name).filter(Boolean);return n.length<2?(n[0]||""):n.slice(0,-1).join(", ")+" i "+n[n.length-1]};
+const kidImg=i=>eimg(kid(i).girl?"1f467":"1f466");
+const avatar=i=>`<span class="av" style="background:${KIDCOL[i%4]}"><img src="${kidImg(i)}" alt="">${esc(kid(i).name||"Dziecko")}</span>`;
+const hasLang=()=>S.lang&&S.lang!=="off";
+
+/* ---------- dźwięki ---------- */
+const SND={};
+function snd(n){if(!S.sound)return;try{let a=SND[n];if(!a){a=SND[n]=new Audio(`snd/${n}.mp3`);a.preload="auto"}
+  const c=a.paused||a.ended?a:a.cloneNode();c.volume=.6;c.currentTime=0;const p=c.play();p&&p.catch(()=>{})}catch(e){}}
+function preloadSnd(){["tap","found","star","wrong","success","reward","sticker","pop"].forEach(n=>{if(!SND[n]){SND[n]=new Audio(`snd/${n}.mp3`);SND[n].preload="auto"}})}
+document.addEventListener("pointerdown",preloadSnd,{once:true});
 
 /* ---------- głos ---------- */
 let VOICES=[];
 function loadVoices(){try{VOICES=speechSynthesis.getVoices()}catch(e){}}
 if("speechSynthesis" in window){loadVoices();speechSynthesis.onvoiceschanged=loadVoices}
-function say(parts){
-  // parts: tekst albo lista [tekst, język] — czytane po kolei
+function say(parts,delay){
   if(!S.voice||!("speechSynthesis" in window))return;
   if(typeof parts==="string")parts=[[parts,"pl-PL"]];
-  try{speechSynthesis.cancel();
+  const go=()=>{try{speechSynthesis.cancel();
     parts.forEach(([t,l])=>{const u=new SpeechSynthesisUtterance(t);u.lang=l;u.rate=l.startsWith("pl")?.95:.8;u.pitch=1.1;
-      const v=VOICES.find(v=>v.lang.replace("_","-")===l)||VOICES.find(v=>v.lang.slice(0,2)===l.slice(0,2));if(v)u.voice=v;speechSynthesis.speak(u)})}catch(e){}
+      const v=VOICES.find(v=>v.lang.replace("_","-")===l)||VOICES.find(v=>v.lang.slice(0,2)===l.slice(0,2));if(v)u.voice=v;speechSynthesis.speak(u)})}catch(e){}};
+  delay?setTimeout(go,delay):go();
 }
 
 /* ---------- efekty ---------- */
 function confetti(set){const c=document.createElement("div");c.className="confetti";set=set||["🎉","⭐","🎊","✨","🍓","🥕"];
   for(let i=0;i<34;i++){const e=document.createElement("i");e.textContent=rnd(set);e.style.left=Math.random()*100+"%";e.style.animationDuration=(1.6+Math.random()*1.6)+"s";e.style.animationDelay=Math.random()*.5+"s";c.appendChild(e)}
   document.body.appendChild(c);setTimeout(()=>c.remove(),4000)}
-function ask(q,yes,onYes){ // własne okno zamiast confirm()
+function ask(q,yes,onYes){
   $("modal").innerHTML=`<div class="modal"><div class="sheet"><h2 style="font-size:24px">${esc(q)}</h2>
     <div class="row" style="justify-content:center;margin-top:18px"><button class="btn sec" id="ak-n">Nie</button><button class="btn" id="ak-y">${esc(yes)}</button></div></div></div>`;
   $("ak-n").onclick=closeModal;$("ak-y").onclick=()=>{closeModal();onYes()};
 }
-function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2000)}
+function toast(t){const d=document.createElement("div");d.className="toast";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2200)}
 function buzz(ms){try{navigator.vibrate&&navigator.vibrate(ms||30)}catch(e){}}
 
 /* ---------- nawigacja ---------- */
 let CUR="home";
-function show(id){document.querySelectorAll(".scr").forEach(s=>s.classList.toggle("hide",s.id!==id));CUR=id;window.scrollTo(0,0);document.body.classList.toggle("big",S.level==="big")}
+function show(id){document.querySelectorAll(".scr").forEach(s=>s.classList.toggle("hide",s.id!==id));CUR=id;window.scrollTo(0,0)}
 function closeModal(){$("modal").innerHTML=""}
 window.appBack=function(){ // przycisk Wstecz w APK
   if($("modal").innerHTML){closeModal();return}
   if(CUR==="home"){window.Android&&Android.exit();return}
-  if(CUR==="recipe"){show(RECIPE_BACK);return}
+  if(CUR==="recipe"){RECIPE_BACK==="parent"?renderParent():show(RECIPE_BACK);return}
   goHome();
 };
 
@@ -287,13 +304,9 @@ function matches(found){
     return {r,miss,ok:miss.length<=2&&(req.length-miss.length)>=Math.ceil(req.length/2),score}})
    .filter(x=>x.ok).sort((a,b)=>a.score-b.score);
 }
-
-function diverse(list,n){ // różne dania (inne emoji/rodzaj), jeśli się da
-  const out=[],seen=new Set();
+function diverse(list,n){const out=[],seen=new Set();
   list.forEach(x=>{if(out.length<n&&!seen.has(x.r.e)){out.push(x);seen.add(x.r.e)}});
-  list.forEach(x=>{if(out.length<n&&!out.includes(x))out.push(x)});
-  return out;
-}
+  list.forEach(x=>{if(out.length<n&&!out.includes(x))out.push(x)});return out}
 
 /* ---------- PIN ---------- */
 function askPin(title,onOk,setMode){
@@ -304,14 +317,14 @@ function askPin(title,onOk,setMode){
     <div class="keypad">${[1,2,3,4,5,6,7,8,9].map(n=>`<button data-k="${n}">${n}</button>`).join("")}<button data-k="x">✖️</button><button data-k="0">0</button><button data-k="b">⌫</button></div>
     ${setMode?"":`<p style="margin-top:14px"><button class="small mut" data-k="f" style="text-decoration:underline">Nie pamiętam PIN-u</button></p>`}
   </div></div>`;
-  $("modal").querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;buzz(15);
+  $("modal").querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;buzz(15);snd("tap");
     if(k==="x"){closeModal();return}
     if(k==="f"){forgotPin(onOk);return}
     if(k==="b")v=v.slice(0,-1);else if(v.length<4)v+=k;
     draw();
     if(v.length===4)setTimeout(()=>{
       if(setMode){if(!first){first=v;v="";draw()}else if(first===v){S.pin=v;save();closeModal();onOk()}else{first="";v="";toast("PIN-y się różnią, spróbuj jeszcze raz");draw()}}
-      else if(v===S.pin){closeModal();onOk()}else{v="";toast("Zły PIN");draw()}
+      else if(v===S.pin){closeModal();onOk()}else{v="";snd("wrong");toast("Zły PIN");draw()}
     },150)})};
   draw();
 }
@@ -325,84 +338,117 @@ function forgotPin(onOk){
 
 /* ---------- PIERWSZE URUCHOMIENIE ---------- */
 let SETUP=0;
+function langPicker(){
+  return `<div class="langpick" id="lp">${Object.entries(LANGS).map(([k,v])=>`<button data-l="${k}" class="${S.lang===k?"on":""}"><span>${v[3]}</span>${v[4]}</button>`).join("")}
+    <button data-l="off" class="${S.lang==="off"?"on":""}"><span>🚫</span>Bez języka</button></div>`;
+}
+function bindLang(after){document.querySelectorAll("#lp button").forEach(b=>b.onclick=()=>{S.lang=b.dataset.l;save();snd("tap");
+  if(S.lang!=="off")say([[LANGS[S.lang][4],"pl-PL"],[{en:"Hello!",de:"Hallo!",es:"¡Hola!"}[S.lang],LANGS[S.lang][1]]]);after()})}
 function renderSetup(){
   const st=`<div class="steps">${[0,1,2,3].map(i=>`<i class="${i===SETUP?"on":""}"></i>`).join("")}</div>`;
   let h="";
-  if(SETUP===0)h=`<div class="hero" style="padding-top:10px"><div class="chef">🧑‍🍳</div><h1>Mały Szef</h1></div>
-    <div class="card"><h3>Jak to działa?</h3>
-    <p>1. 🔍 Dziecko chodzi po kuchni i zaznacza w aplikacji, co znajdzie w lodówce i szafkach.</p>
-    <p>2. 👨‍👩‍👧 Ty zatwierdzasz 2–3 dania, które możesz dziś przygotować.</p>
-    <p>3. 🍽️ Dziecko samo wybiera, co zje, i dostaje naklejkę.</p>
-    <p class="mut small">Po drodze są mini-zadania: słówka po angielsku, kolory i liczenie. Wszystkie dane zostają na tym telefonie.</p></div>
-    <button class="btn huge" data-next>Zaczynamy</button>`;
-  if(SETUP===1)h=`<h2 style="font-size:28px">O dziecku</h2>
-    <div class="card"><b>Imię dziecka</b><input type="text" id="s-name" value="${esc(S.name)}" placeholder="np. Zosia" maxlength="20" style="margin-top:8px"></div>
-    <div class="card"><b>Wiek</b><div class="seg" style="margin-top:8px" id="s-level">
-      <button data-v="small" class="${S.level==="small"?"on":""}">👶 4–7 lat<br><span class="small mut">bez czytania</span></button>
-      <button data-v="big" class="${S.level==="big"?"on":""}">🧒 7–10 lat<br><span class="small mut">z napisami</span></button></div>
-    <div class="seg" style="margin-top:10px" id="s-girl"><button data-v="0" class="${S.girl?"":"on"}">👦 Chłopiec</button><button data-v="1" class="${S.girl?"on":""}">👧 Dziewczynka</button></div></div>
+  if(SETUP===0){
+    const n=S.kids.length||1;
+    h=`<div class="hero" style="padding-top:6px"><img class="chef" src="${eimg("1f9d1-200d-1f373")}" alt=""><h1>Mały Szef</h1>
+      <p class="mut">Dziecko szuka jedzenia w kuchni, a potem samo wybiera, co zje.</p></div>
+    <div class="card"><h3 class="ph">👧👦 Ile dzieci będzie grać?</h3>
+      <div class="bigpick" id="s-n">${[1,2,3,4].map(i=>`<button data-n="${i}" class="${n===i?"on":""}">${i}</button>`).join("")}</div>
+      <p class="small mut" style="margin:10px 0 0">Kilkoro dzieci gra razem jako drużyna: wspólnie szukają, na zmianę rozwiązują zadania i zbierają naklejki do jednego albumu.</p></div>
+    <div class="card"><h3 class="ph">🌍 Jakiego języka obcego uczymy?</h3>${langPicker()}
+      <p class="small mut" style="margin:10px 0 0">Słówka pojawiają się w zadaniach. Możesz to zmienić później w trybie rodzica.</p></div>
     <button class="btn huge" data-next>Dalej</button>`;
+  }
+  if(SETUP===1){
+    h=`<h2 style="font-size:28px">${S.kids.length>1?"Dzieci":"Dziecko"}</h2>
+    ${S.kids.map((k,i)=>`<div class="card kidcard" style="border-color:${KIDCOL[i%4]}">
+      <b>${S.kids.length>1?(i+1)+". dziecko":"Imię dziecka"}</b><input type="text" data-name="${i}" value="${esc(k.name)}" placeholder="Imię" maxlength="20" style="margin:8px 0">
+      <div class="seg" data-girl="${i}"><button data-v="0" class="${k.girl?"":"on"}">👦 Chłopiec</button><button data-v="1" class="${k.girl?"on":""}">👧 Dziewczynka</button></div>
+      <div class="seg" data-level="${i}" style="margin-top:8px"><button data-v="small" class="${k.level==="small"?"on":""}">4–7 lat<br><span class="small mut">bez czytania</span></button><button data-v="big" class="${k.level==="big"?"on":""}">7–10 lat<br><span class="small mut">z czytaniem</span></button></div>
+    </div>`).join("")}
+    <button class="btn huge" data-next>Dalej</button>`;
+  }
   if(SETUP===2)h=`<h2 style="font-size:28px">Bezpieczeństwo w kuchni</h2>
     <div class="card"><p>⚠️ Zadania dotyczą <b>tylko produktów spożywczych</b>. Aplikacja nigdy nie prosi o używanie noży, kuchenki ani piekarnika.</p>
-    <p>Zdecyduj, <b>gdzie dziecko może zaglądać</b>. Pozostałe miejsca nie pojawią się w aplikacji:</p>
-    ${Object.entries(ZONES).map(([z,[n,e]])=>`<label class="opt"><input type="checkbox" data-zone="${z}" ${S.zones.includes(z)?"checked":""}><span style="font-size:28px">${e}</span><b>${n}</b></label>`).join("")}
-    <p class="mut small">Wskazówka: przed pierwszym polowaniem pokaż dziecku, które szafki są „jego”. Ciężkie i szklane rzeczy postaw niżej albo wyjmij sam.</p></div>
+    <p>Zdecyduj, <b>gdzie dzieci mogą zaglądać</b>. Pozostałe miejsca nie pojawią się w aplikacji:</p>
+    ${Object.entries(ZONES).map(([z,[n,e]])=>`<label class="opt"><span style="font-size:28px">${e}</span><b style="flex:1">${n}</b><input type="checkbox" class="sw" data-zone="${z}" ${S.zones.includes(z)?"checked":""}></label>`).join("")}
+    <p class="mut small">Wskazówka: przed pierwszą zabawą pokaż dzieciom, które szafki są „ich”. Ciężkie i szklane rzeczy postaw niżej albo wyjmij sam.</p></div>
     <button class="btn huge" data-next>Dalej</button>`;
   if(SETUP===3)h=`<h2 style="font-size:28px">PIN rodzica</h2>
-    <div class="card"><p>PIN chroni ustawienia: dozwolone dania, ograniczenia i zatwierdzanie propozycji. Dziecko go nie potrzebuje.</p></div>
+    <div class="card"><p>PIN chroni ustawienia: dozwolone dania, ograniczenia i zatwierdzanie propozycji. Dzieci go nie potrzebują.</p></div>
     <button class="btn huge" id="s-pin">🔒 Ustaw PIN</button>`;
-  $("setup").innerHTML=st+h;
+  $("setup").innerHTML=st+(SETUP?`<button class="small mut" id="s-prev" style="text-decoration:underline;margin-bottom:6px">⬅️ Wstecz</button>`:"")+h;
+  if($("s-prev"))$("s-prev").onclick=()=>{readKids();SETUP--;renderSetup()};
   const nx=$("setup").querySelector("[data-next]");
   if(nx)nx.onclick=()=>{
-    if(SETUP===1){S.name=$("s-name").value.trim()}
+    if(SETUP===1){readKids();if(S.kids.some(k=>!k.name)){toast("Wpisz imię każdego dziecka");return}}
     if(SETUP===2){S.zones=[...document.querySelectorAll("[data-zone]:checked")].map(x=>x.dataset.zone);if(!S.zones.length){toast("Zaznacz co najmniej jedno miejsce");return}}
-    save();SETUP++;renderSetup();window.scrollTo(0,0)};
-  document.querySelectorAll("#s-level button").forEach(b=>b.onclick=()=>{S.level=b.dataset.v;S.name=$("s-name").value.trim();renderSetup()});
-  document.querySelectorAll("#s-girl button").forEach(b=>b.onclick=()=>{S.girl=b.dataset.v==="1";S.name=$("s-name").value.trim();renderSetup()});
-  if($("s-pin"))$("s-pin").onclick=()=>askPin("Ustaw PIN",()=>{S.setupDone=true;save();goHome();toast("Gotowe! Zawołaj dziecko 🙂")},true);
+    snd("pop");save();SETUP++;renderSetup();window.scrollTo(0,0)};
+  document.querySelectorAll("#s-n button").forEach(b=>b.onclick=()=>{const n=+b.dataset.n;snd("tap");
+    while(S.kids.length<n)S.kids.push({name:"",girl:false,level:"small"});S.kids=S.kids.slice(0,n);save();renderSetup()});
+  if(SETUP===0){if(!S.kids.length)S.kids=[{name:"",girl:false,level:"small"}];bindLang(renderSetup)}
+  document.querySelectorAll("[data-girl] button,[data-level] button").forEach(b=>b.onclick=()=>{readKids();const p=b.parentElement;
+    if(p.dataset.girl)S.kids[+p.dataset.girl].girl=b.dataset.v==="1";else S.kids[+p.dataset.level].level=b.dataset.v;snd("tap");save();renderSetup()});
+  if($("s-pin"))$("s-pin").onclick=()=>askPin("Ustaw PIN",()=>{S.setupDone=true;save();goHome();toast("Gotowe! Zawołaj dzieci 🙂")},true);
 }
+function readKids(){document.querySelectorAll("[data-name]").forEach(i=>{S.kids[+i.dataset.name].name=i.value.trim()});save()}
 
 /* ---------- EKRAN GŁÓWNY ---------- */
 function goHome(){
-  $("h-stars").textContent="⭐ "+G.stars;
-  $("h-hi").textContent=S.name?`Cześć, ${S.name}!`:gf("Cześć, Szefie!","Cześć, Szefowo!");
-  $("h-meal").textContent=`Dziś szukamy na: ${MEALS[S.meal][1]} ${MEALS[S.meal][0].toLowerCase()}`;
+  TEAM=S.kids.map((_,i)=>i);
+  document.body.classList.toggle("big",S.kids.length&&S.kids.every(k=>k.level==="big"));
+  const nm=names(TEAM);
+  $("home").innerHTML=`<div class="top"><span class="pill">⭐ ${G.stars}</span><button class="ico-btn" id="h-album" aria-label="Album">📒</button></div>
+  <div class="hero"><img class="chef" src="${eimg("1f9d1-200d-1f373")}" alt="">
+    <h1>${nm?`Cześć, ${esc(nm)}!`:"Cześć, Szefie!"}</h1>
+    <div class="row" style="justify-content:center;margin:8px 0">${TEAM.length>1?TEAM.map(avatar).join(""):""}</div>
+    <p class="mut big" style="font-size:20px">Dziś szukamy na: ${MEALS[S.meal][1]} ${MEALS[S.meal][0].toLowerCase()}</p></div>
+  <button class="btn huge" id="h-start" style="margin-top:16px"><img src="${eimg("1f50d")}" alt="">Szukamy jedzenia!</button>
+  <button class="btn sec huge" id="h-album2" style="margin-top:16px;font-size:22px">📒 ${S.kids.length>1?"Nasze":"Moje"} naklejki</button>
+  <button class="ico-btn parent-link" id="h-parent" aria-label="Tryb rodzica">🔒</button>`;
   show("home");
+  $("h-start").onclick=()=>{snd("pop");S.kids.length>1?pickTeam():startHunt([0])};
+  $("h-album").onclick=$("h-album2").onclick=()=>{snd("pop");renderAlbum()};
+  $("h-parent").onclick=()=>askPin("Tryb rodzica",()=>renderParent());
 }
-$("h-start").onclick=()=>startHunt();
-$("h-album").onclick=$("h-album2").onclick=()=>renderAlbum();
-$("h-parent").onclick=()=>askPin("Tryb rodzica",()=>renderParent());
+function pickTeam(){
+  const sel=new Set(S.kids.map((_,i)=>i));
+  const draw=()=>{$("modal").innerHTML=`<div class="modal"><div class="sheet"><h2>Kto dziś szuka?</h2>
+    <div class="kidpick">${S.kids.map((k,i)=>`<button data-i="${i}" class="${sel.has(i)?"on":""}" style="color:${KIDCOL[i%4]}"><img src="${kidImg(i)}" alt="">${esc(k.name)}</button>`).join("")}</div>
+    <button class="btn huge" id="tp-go" ${sel.size?"":"disabled"}>🔍 Start!</button></div></div>`;
+    $("modal").querySelectorAll(".kidpick button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);snd("tap");say(kid(i).name);draw()});
+    $("tp-go").onclick=()=>{closeModal();startHunt([...sel].sort())}};
+  draw();say("Kto dziś szuka?");
+}
 
 /* ---------- POLOWANIE ---------- */
 let H=null;
-function huntProducts(){ // produkty z dozwolonych dań, bez stałych, w dozwolonych miejscach
-  const ids=new Set();allowed().forEach(r=>Object.keys(r.i).forEach(k=>ids.add(k)));
-  return [...ids].filter(k=>P[k]&&!S.staples.includes(k)&&S.zones.includes(P[k][2])).sort((a,b)=>P[a][0].localeCompare(P[b][0],"pl"));
+function huntProducts(){
+  const used=new Set();allowed().forEach(r=>Object.keys(r.i).forEach(k=>used.add(k)));
+  return Object.keys(P).filter(k=>!S.staples.includes(k)&&S.zones.includes(P[k][1]))
+    .sort((a,b)=>(used.has(b)-used.has(a))||P[a][0].localeCompare(P[b][0],"pl"));
 }
-function startHunt(){
+function startHunt(team){
+  TEAM=team;
   const prods=huntProducts();
   if(!prods.length){toast("Brak produktów – poproś rodzica o ustawienia");return}
-  const zones=S.zones.filter(z=>prods.some(k=>P[k][2]===z));
-  H={found:new Set(),zone:zones[0],zones,prods,stars:0,since:0,quest:null,tasks:0};
+  const zones=Object.keys(ZONES).filter(z=>S.zones.includes(z)&&prods.some(k=>P[k][1]===z));
+  H={found:new Set(),zone:zones[0],zones,prods,stars:0,since:0,next:2,turn:0,lastType:""};
   show("hunt");renderHunt();
-  setTimeout(()=>sayZone(),300);
+  const nm=names(TEAM);
+  say(`${nm?nm+", ":""}${many()?"szukajcie razem":"szukaj"}! Zajrzyj: ${ZONES[H.zone][0].toLowerCase()}. Dotknij tego, co ${many()?"znajdziecie":"znajdziesz"}!`,250);
 }
-function sayZone(){const [n]=ZONES[H.zone];say(`${S.name?S.name+", ":""}zajrzyj: ${n.toLowerCase()}. Dotknij tego, co znajdziesz!`)}
+function sayZone(){say(`${ZONES[H.zone][0]}. Dotknij tego, co ${many()?"znajdziecie":"znajdziesz"}!`)}
 function renderHunt(){
-  $("u-zones").innerHTML=H.zones.map(z=>`<button data-z="${z}" class="${z===H.zone?"on":""}">${ZONES[z][1]} ${ZONES[z][0]}</button>`).join("");
-  $("u-zones").querySelectorAll("button").forEach(b=>b.onclick=()=>{H.zone=b.dataset.z;renderHunt();sayZone()});
-  const list=H.prods.filter(k=>P[k][2]===H.zone);
-  $("u-grid").innerHTML=list.map(k=>`<button class="tile ${H.found.has(k)?"found":""}" data-p="${k}"><span class="e">${P[k][1]}</span><span class="l">${esc(P[k][0])}</span></button>`).join("");
+  $("u-zones").innerHTML=H.zones.map(z=>{const n=[...H.found].filter(k=>P[k][1]===z).length;
+    return `<button data-z="${z}" class="${z===H.zone?"on":""}">${ZONES[z][1]} ${ZONES[z][0]}${n?` <b>${n}</b>`:""}</button>`}).join("");
+  $("u-zones").querySelectorAll("button").forEach(b=>b.onclick=()=>{H.zone=b.dataset.z;snd("pop");renderHunt();sayZone();window.scrollTo(0,0)});
+  const list=H.prods.filter(k=>P[k][1]===H.zone);
+  $("u-grid").innerHTML=list.map(k=>`<button class="tile ${H.found.has(k)?"found":""}" data-p="${k}"><img src="${pimg(k)}" alt="" loading="lazy"><span class="l">${esc(P[k][0])}</span></button>`).join("");
   $("u-grid").querySelectorAll(".tile").forEach(b=>b.onclick=()=>tapProduct(b.dataset.p,b));
-  renderQuest();updateDock();
-}
-function renderQuest(){
-  const q=H.quest;
-  $("u-quest").innerHTML=q?`<div class="quest"><span class="blob" style="background:${COL[q][1]}"></span><b class="big" style="font-size:20px;flex:1">Znajdź coś ${COL[q][0]}!</b><button class="ico-btn" id="q-say">🔊</button></div>`:"";
-  if(q)$("q-say").onclick=()=>say(`Znajdź coś ${COL[q][0]}!`);
+  updateDock();
 }
 function updateDock(){
-  const m=matches(H.found);const n=m.length;
+  const n=matches(H.found).length;
   $("u-stars").textContent="⭐ "+(G.stars+H.stars);
   $("u-dishes").textContent=n?`🍽️ ${n} ${n===1?"danie":(n%10>=2&&n%10<=4&&(n%100<12||n%100>14))?"dania":"dań"}`:"🍽️ Szukaj dalej…";
   $("u-found").textContent=`znaleziono: ${H.found.size}`;
@@ -411,96 +457,110 @@ function updateDock(){
 }
 function tapProduct(k,el){
   buzz();
-  if(H.found.has(k)){H.found.delete(k);el.classList.remove("found");updateDock();say(P[k][0]+" – odznaczone");return}
-  H.found.add(k);el.classList.add("found","pop");H.since++;
-  // zadanie z kolorem
-  if(H.quest&&P[k][3]===H.quest){const c=H.quest;H.quest=null;H.stars+=2;renderQuest();confetti(["⭐","🌟",P[k][1]]);
-    say(`${rnd(PRAISE)} ${P[k][0]} – to coś ${COL[c][0]}! Dwie gwiazdki!`);updateDock();return}
-  updateDock();
-  if(H.since>=3){H.since=0;setTimeout(()=>miniTask(k),500)}else say(P[k][0]);
+  if(H.found.has(k)){H.found.delete(k);el.classList.remove("found");snd("tap");updateDock();renderZoneCounts();say(P[k][0]+" – odznaczone");return}
+  H.found.add(k);el.classList.add("found","pop");H.since++;snd("found");
+  updateDock();renderZoneCounts();
+  if(H.since>=H.next){H.since=0;H.next=2+Math.floor(Math.random()*2);setTimeout(()=>miniTask(k),450)}else say(P[k][0]);
 }
+function renderZoneCounts(){$("u-zones").querySelectorAll("button").forEach(b=>{const z=b.dataset.z,n=[...H.found].filter(k=>P[k][1]===z).length;
+  b.innerHTML=`${ZONES[z][1]} ${ZONES[z][0]}${n?` <b>${n}</b>`:""}`})}
 
-/* ---------- MINI-ZADANIA ---------- */
-function miniTask(last){
-  const types=[];
-  if(S.lang!=="off"){types.push("word","quiz")}
-  const colors=[...new Set(H.prods.filter(k=>!H.found.has(k)&&P[k][3]).map(k=>P[k][3]))];
-  if(colors.length&&!H.quest)types.push("color");
-  const cnt=[...H.found].filter(k=>COUNT[k]);
-  if(cnt.length)types.push("count");
-  if(!types.length){say(P[last][0]);return}
-  // nie powtarzaj tego samego typu dwa razy z rzędu
+/* ---------- MINI-ZADANIA (zawsze o produkcie, który dziecko właśnie znalazło) ---------- */
+function miniTask(k){
+  const who=TEAM[H.turn%TEAM.length];H.turn++;
+  const big=kid(who).level==="big",p=P[k],types=[];
+  if(hasLang()&&p[3+LANGS[S.lang][2]-3])types.push(big?"transl":"word");
+  if(p[7])types.push("count");
+  if(p[2])types.push("color");
+  if(big&&p[9])types.push("spell","spell");           // pisownia częściej dla starszych
+  if(!big&&!DIGRAPH.test(p[6])&&LETTERS.includes(p[6][0].toUpperCase()))types.push("letter");
+  if(!types.length){say(p[0]);return}
   let t=rnd(types);if(t===H.lastType&&types.length>1)t=rnd(types.filter(x=>x!==t));H.lastType=t;
-  if(t==="word")taskWord(last);
-  if(t==="quiz")taskQuiz();
-  if(t==="color")taskColor(colors);
-  if(t==="count")taskCount(rnd(cnt));
+  snd("pop");
+  ({word:taskWord,transl:taskTransl,count:taskCount,color:taskColor,spell:taskSpell,letter:taskLetter})[t](k,who);
 }
-function finishTask(stars,msg){H.stars+=stars;updateDock();closeModal();confetti(["⭐","🌟","✨"]);if(msg)say(msg)}
-function fw(k){return P[k][LANGS[S.lang][2]]}
-function taskWord(k){
-  const [ln,code]=LANGS[S.lang];const w=fw(k);
-  $("modal").innerHTML=`<div class="modal"><div class="sheet"><div class="e">${P[k][1]}</div>
-    <h2>${esc(P[k][0])}</h2><p class="mut" style="margin:6px 0">po ${ln} to:</p><div class="word">${esc(w)}</div>
+const fw=k=>P[k][LANGS[S.lang][2]];
+const callName=who=>many()?kid(who).name+", ":"";
+function sheet(k,who,body){
+  $("modal").innerHTML=`<div class="modal"><div class="sheet">${many()?`<div class="who">${avatar(who)} <b class="mut">to zadanie dla ${gf(who,"Ciebie","Ciebie")}!</b></div>`:""}
+    <img class="pic" src="${pimg(k)}" alt="">${body}</div></div>`;
+}
+function finishTask(stars,msg){H.stars+=stars;updateDock();snd("star");setTimeout(()=>{closeModal();confetti(["⭐","🌟","✨"])},msg===null?0:900);if(msg)say(msg)}
+function wrong(b){b.classList.remove("bad");void b.offsetWidth;b.classList.add("bad");buzz(80);snd("wrong");say("Spróbuj jeszcze raz!")}
+
+function taskWord(k,who){ // słówko: posłuchaj i powtórz
+  const [ln,code]=LANGS[S.lang];const w=fw(k),sp=P[k][6];
+  sheet(k,who,`<h2>${esc(cap(sp))}</h2><p class="mut" style="margin:6px 0">po ${ln} to:</p><div class="word">${esc(w)}</div>
     <div class="row" style="justify-content:center;margin:16px 0"><button class="btn pu" id="t-hear">🔊 Posłuchaj</button></div>
-    <p><b>Powtórz głośno!</b></p><button class="btn gr huge" id="t-ok">👍 ${gf("Powiedziałem","Powiedziałam")}!</button></div></div>`;
-  const hear=()=>say([[`${gf("Znalazłeś","Znalazłaś")} ${P[k][0].toLowerCase()}! Po ${ln} to:`,"pl-PL"],[w,code],["Powtórz!","pl-PL"]]);
-  hear();$("t-hear").onclick=()=>say([[w,code]]);
-  $("t-ok").onclick=()=>{if(!G.words.includes(k))G.words.push(k);finishTask(1,rnd(PRAISE)+" Jedna gwiazdka!")};
+    <p><b>Powtórz głośno!</b></p><button class="btn gr huge" id="t-ok">👍 ${gf(who,"Powiedziałem","Powiedziałam")}!</button>`);
+  say([[`${callName(who)}${sp}! Po ${ln} to:`,"pl-PL"],[w,code],["Powtórz!","pl-PL"]]);
+  $("t-hear").onclick=()=>say([[w,code]]);
+  $("t-ok").onclick=()=>{if(!G.words.includes(k))G.words.push(k);finishTask(1,rnd(PRAISE))};
 }
-function taskQuiz(){
-  const [ln,code]=LANGS[S.lang];
-  const pool=shuffle(H.prods.filter(k=>H.found.has(k)||Math.random()<.5));
-  const uniq=[];pool.forEach(k=>{if(!uniq.some(u=>P[u][1]===P[k][1]||fw(u)===fw(k)))uniq.push(k)});
-  if(uniq.length<3){taskWord([...H.found].pop());return}
-  const opts=uniq.slice(0,3),ans=rnd(opts),big=S.level==="big";
-  // mały: słyszy obce słowo i wskazuje obrazek; duży: widzi polskie słowo i wybiera obce
-  $("modal").innerHTML=`<div class="modal"><div class="sheet">${big
-    ?`<h2>Jak jest po ${ln}</h2><div class="e" style="font-size:70px">${P[ans][1]}</div><div class="word" style="color:var(--ink);font-size:34px">${esc(P[ans][0])}?</div><div class="opts txt">${opts.map(k=>`<button data-k="${k}">${esc(fw(k))}</button>`).join("")}</div>`
-    :`<h2>Gdzie jest…</h2><div class="word">${esc(fw(ans))}?</div><button class="btn pu" id="t-hear" style="margin-top:10px">🔊 Posłuchaj</button><div class="opts">${opts.map(k=>`<button data-k="${k}">${P[k][1]}</button>`).join("")}</div>`}
-    </div></div>`;
-  if(!big){say([["Gdzie jest","pl-PL"],[fw(ans),code]]);$("t-hear").onclick=()=>say([[fw(ans),code]])}else say(`Jak jest po ${ln}: ${P[ans][0]}?`);
+function taskTransl(k,who){ // jak jest po angielsku? (dla czytających)
+  const [ln,code]=LANGS[S.lang];const w=fw(k);
+  const others=shuffle(Object.keys(P).filter(x=>x!==k&&fw(x)!==w&&!fw(x).includes(" "))).slice(0,2);
+  const opts=shuffle([k,...others]);
+  sheet(k,who,`<h2>Jak jest po ${ln}?</h2><div class="word" style="color:var(--ink);font-size:32px">${esc(cap(P[k][6]))}</div>
+    <div class="opts txt">${opts.map(x=>`<button data-k="${x}">${esc(fw(x))}</button>`).join("")}</div>`);
+  say(`${callName(who)}jak jest po ${ln}: ${P[k][6]}?`);
   $("modal").querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{
-    if(b.dataset.k===ans){b.classList.add("ok");if(!G.words.includes(ans))G.words.push(ans);say([[rnd(PRAISE),"pl-PL"],[fw(ans),code]]);setTimeout(()=>finishTask(1),1200)}
-    else{b.classList.remove("bad");void b.offsetWidth;b.classList.add("bad");buzz(80);say("Spróbuj jeszcze raz!")}});
+    if(b.dataset.k===k){b.classList.add("ok");if(!G.words.includes(k))G.words.push(k);say([[rnd(PRAISE),"pl-PL"],[w,code]]);finishTask(1,null)}else wrong(b)});
 }
-function taskColor(colors){
-  const c=rnd(colors);
-  $("modal").innerHTML=`<div class="modal"><div class="sheet"><h2>Zadanie specjalne!</h2>
-    <div style="width:120px;height:120px;border-radius:50%;margin:16px auto;background:${COL[c][1]};border:5px solid rgba(0,0,0,.08)"></div>
-    <div class="word" style="color:var(--ink)">Znajdź coś ${COL[c][0]}!</div><p class="mut">Za to są 2 gwiazdki ⭐⭐</p>
-    <button class="btn huge" id="t-ok">🔍 Szukam!</button></div></div>`;
-  say(`Zadanie specjalne! Znajdź coś ${COL[c][0]}!`);
-  $("t-ok").onclick=()=>{H.quest=c;closeModal();renderQuest();
-    // przełącz na miejsce, gdzie jest coś w tym kolorze, jeśli w obecnym nie ma
-    if(!H.prods.some(k=>P[k][2]===H.zone&&P[k][3]===c&&!H.found.has(k))){const z=H.zones.find(z=>H.prods.some(k=>P[k][2]===z&&P[k][3]===c&&!H.found.has(k)));if(z){H.zone=z;renderHunt()}}};
+function taskCount(k,who){ // policz dokładnie ten produkt
+  let n=0;const cnt=P[k][7];
+  const draw=()=>{sheet(k,who,`<h2>Policz!</h2><div class="word" style="color:var(--ink);font-size:32px">Ile masz ${esc(cnt)}?</div>
+    <p class="mut small">Stuknij jeden obrazek za każdą sztukę.</p>
+    <div class="count">${Array.from({length:10},(_,i)=>`<button data-i="${i+1}" class="${i<n?"on":""}"><img src="${pimg(k)}" alt=""></button>`).join("")}</div>
+    <div class="numbig">${n}</div><button class="btn gr huge" id="t-ok" ${n?"":"disabled"} style="margin-top:10px">✅ Gotowe</button>`);
+    $("modal").querySelectorAll(".count button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;n=(i===n)?i-1:i;buzz(15);snd("tap");say(String(n||"zero"));draw()});
+    $("t-ok").onclick=()=>{const parts=[[`${n}! ${rnd(PRAISE)}`,"pl-PL"]];
+      if(hasLang()&&n<=10)parts.push([`Po ${LANGS[S.lang][0]}:`,"pl-PL"],[NUMS[S.lang][n],LANGS[S.lang][1]]);
+      say(parts);finishTask(1,null)}};
+  draw();say(`${callName(who)}ile masz ${cnt}? Policz!`);
 }
-function taskCount(k){
-  let n=0;const big=S.level==="big";
-  const draw=()=>{$("modal").innerHTML=`<div class="modal"><div class="sheet"><h2>Policz!</h2>
-    <div class="word" style="color:var(--ink);font-size:34px">Ile masz ${COUNT[k]}?</div>
-    <p class="mut small">${big?"Stuknij tyle obrazków, ile masz.":"Stukaj po jednym, licz głośno!"}</p>
-    <div class="count">${Array.from({length:10},(_,i)=>`<button data-i="${i+1}" class="${i<n?"on":""}">${P[k][1]}</button>`).join("")}</div>
-    <div class="numbig">${n}</div><button class="btn gr huge" id="t-ok" ${n?"":"disabled"}>✅ Gotowe</button></div></div>`;
-    $("modal").querySelectorAll(".count button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;n=(i===n)?i-1:i;buzz(15);say(String(n||"zero"));draw()});
-    $("t-ok").onclick=()=>finishTask(1,`Masz ${n}! ${rnd(PRAISE)}`)};
-  draw();say(`Ile masz ${COUNT[k]}? Policz!`);
+function taskColor(k,who){ // jakiego koloru jest ten produkt?
+  const c=P[k][2],opts=shuffle([c,...shuffle(Object.keys(COL).filter(x=>x!==c)).slice(0,2)]),sp=P[k][6];
+  sheet(k,who,`<h2>Jakiego koloru?</h2><div class="word" style="color:var(--ink);font-size:32px">${esc(cap(sp))}</div>
+    <div class="opts colors">${opts.map(x=>`<button data-c="${x}" style="background:${COL[x][1]};box-shadow:0 4px 0 var(--line),inset 0 0 0 2px rgba(0,0,0,.08)" aria-label="${COL[x][0]}"></button>`).join("")}</div>`);
+  say(`${callName(who)}jakiego koloru jest ${sp}?`);
+  $("modal").querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{
+    if(b.dataset.c===c){b.classList.add("ok");const parts=[[`Tak! Kolor ${COL[c][0]}!`,"pl-PL"]];
+      if(hasLang())parts.push([`Po ${LANGS[S.lang][0]}:`,"pl-PL"],[COL[c][LANGS[S.lang][2]-1],LANGS[S.lang][1]]);
+      say(parts);finishTask(1,null)}
+    else{wrong(b);say(`To jest ${COL[b.dataset.c][0]}. Spróbuj jeszcze raz!`)}});
+}
+function taskSpell(k,who){ // jak się pisze? (ó/u, rz/ż, ch/h…)
+  const sp=P[k][6],opts=shuffle([sp,...shuffle(P[k][8]).slice(0,2)]);
+  sheet(k,who,`<h2>Jak się pisze?</h2><p class="mut">Wybierz dobry zapis</p>
+    <div class="opts txt">${opts.map(x=>`<button data-w="${esc(x)}">${esc(x)}</button>`).join("")}</div><div id="t-ex"></div>`);
+  say(`${callName(who)}jak się pisze: ${sp}?`);
+  $("modal").querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{
+    if(b.dataset.w===sp){b.classList.add("ok");$("t-ex").innerHTML=`<div class="explain">✏️ ${esc(cap(sp))} piszemy przez <b>${esc(P[k][9])}</b>!</div>`;
+      say(`${rnd(PRAISE)} ${sp} piszemy przez ${P[k][9]}.`);H.stars+=2;updateDock();snd("star");setTimeout(()=>{closeModal();confetti(["⭐","🌟","✏️"])},2600)}
+    else wrong(b)});
+}
+function taskLetter(k,who){ // na jaką literę? (dla młodszych)
+  const sp=P[k][6],L=sp[0].toUpperCase(),opts=shuffle([L,...shuffle(LETTERS.filter(x=>x!==L)).slice(0,2)]);
+  sheet(k,who,`<h2>Na jaką literę?</h2><div class="word" style="color:var(--ink);font-size:32px">${esc(cap(sp))}</div>
+    <div class="opts letters">${opts.map(x=>`<button data-l="${x}">${x}</button>`).join("")}</div>`);
+  say(`${callName(who)}na jaką literę zaczyna się ${sp}?`);
+  $("modal").querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{
+    if(b.dataset.l===L){b.classList.add("ok");say(`${rnd(PRAISE)} ${sp} zaczyna się na ${L}!`);finishTask(1,null)}else wrong(b)});
 }
 
-$("u-say").onclick=()=>H.quest?say(`Znajdź coś ${COL[H.quest][0]}!`):sayZone();
+$("u-say").onclick=()=>sayZone();
 $("u-home").onclick=()=>{if(H.found.size)ask("Zakończyć szukanie?","Tak, koniec",goHome);else goHome()};
 $("u-done").onclick=()=>{
-  H.cands=matches(H.found);
-  if(S.approve){
-    say("Super! Zawołaj mamę albo tatę, żeby wybrali dania.");
-    renderCallParent();
-  }else{H.picks=diverse(H.cands,S.n);renderChoose()}
+  H.cands=matches(H.found);snd("success");
+  if(S.approve){say(`Super! ${many()?"Zawołajcie":"Zawołaj"} mamę albo tatę, żeby wybrali dania.`);renderCallParent()}
+  else{H.picks=diverse(H.cands,S.n);renderChoose()}
 };
 
 /* ---------- RODZIC ZATWIERDZA ---------- */
 function renderCallParent(){
-  $("approve").innerHTML=`<div class="hero"><div class="chef">👨‍👩‍👧</div><h1 style="font-size:34px">Zawołaj rodzica!</h1>
-    <p class="big mut" style="font-size:20px">Mama albo tata wybiorą dania, z których potem wybierzesz Ty.</p></div>
+  $("approve").innerHTML=`<div class="hero"><img class="chef" src="${eimg("1f9d1-200d-1f373")}" alt=""><h1 style="font-size:34px">${many()?"Zawołajcie":"Zawołaj"} rodzica!</h1>
+    <p class="big mut" style="font-size:20px">Mama albo tata wybiorą dania, a potem ${many()?"wybierzecie Wy":"wybierzesz Ty"}.</p></div>
     <button class="btn huge" id="a-pin">🔒 Jestem rodzicem</button>
     <p style="text-align:center"><button class="mut" id="a-back" style="text-decoration:underline;margin-top:16px">⬅️ Wróć do szukania</button></p>`;
   show("approve");
@@ -511,15 +571,15 @@ function renderApprove(){
   const c=H.cands.slice(0,10);const sel=new Set(diverse(c,S.n).map(x=>x.r.n));
   const draw=()=>{
     $("approve").innerHTML=`<div class="top"><button class="ico-btn" id="a-back">⬅️</button><b class="big" style="font-size:22px">Wybierz ${S.n===2?"2":"2–3"} dania</b><span style="width:48px"></span></div>
-    <p class="mut small">Dziecko znalazło ${H.found.size} produktów. Zaznacz dania, które możesz dziś zrobić. Dziecko wybierze jedno z nich.</p>
-    <div class="card rlist">${c.map(x=>`<div class="ri" data-n="${esc(x.r.n)}"><span class="e">${x.r.e}</span><span class="t"><b>${esc(x.r.n)}</b>
+    <p class="mut small">Znaleziono ${H.found.size} produktów. Zaznacz dania, które możesz dziś zrobić. ${many()?"Dzieci wybiorą":"Dziecko wybierze"} jedno z nich.</p>
+    <div class="card rlist">${c.map(x=>`<div class="ri" data-n="${esc(x.r.n)}"><img src="${eimg(x.r.e)}" alt=""><span class="t"><b>${esc(x.r.n)}</b>
       <span class="small ${x.miss.length?"miss":"have"}">${x.miss.length?"brakuje: "+x.miss.map(k=>P[k]?P[k][0]:k).join(", "):"masz wszystko"}</span>
       <span class="small mut"> · ${x.r.t} min</span></span><input type="checkbox" class="sw" ${sel.has(x.r.n)?"checked":""}></div>`).join("")}</div>
-    <button class="btn gr huge" id="a-ok" ${sel.size?"":"disabled"}>👉 Pokaż dziecku (${sel.size})</button>`;
+    <button class="btn gr huge" id="a-ok" ${sel.size?"":"disabled"}>👉 Pokaż ${many()?"dzieciom":"dziecku"} (${sel.size})</button>`;
     $("a-back").onclick=()=>{show("hunt");renderHunt()};
-    $("approve").querySelectorAll(".ri").forEach(d=>d.onclick=e=>{const n=d.dataset.n;
-      if(sel.has(n))sel.delete(n);else{if(sel.size>=3){toast("Najwyżej 3 dania");draw();return}sel.add(n)}draw()});
-    $("a-ok").onclick=()=>{H.picks=c.filter(x=>sel.has(x.r.n));renderChoose()};
+    $("approve").querySelectorAll(".ri").forEach(d=>d.onclick=e=>{e.preventDefault();const n=d.dataset.n;
+      if(sel.has(n))sel.delete(n);else{if(sel.size>=3){toast("Najwyżej 3 dania");return}sel.add(n)}snd("tap");draw()});
+    $("a-ok").onclick=()=>{H.picks=c.filter(x=>sel.has(x.r.n));snd("pop");renderChoose()};
   };
   draw();
 }
@@ -528,47 +588,57 @@ function renderApprove(){
 let PICK=null;
 function renderChoose(){
   PICK=null;
-  $("c-title").textContent=S.name?`${S.name}, co dziś zjesz?`:"Co dziś zjesz?";
-  $("c-list").innerHTML=H.picks.map((x,i)=>`<button class="dish" data-i="${i}"><span class="e">${x.r.e}</span><span><h3>${esc(x.r.n)}</h3><span class="mut">🔊 posłuchaj</span></span></button>`).join("");
+  const nm=names(TEAM);
+  $("c-title").textContent=many()?`${nm}, wybierzcie razem!`:(nm?`${nm}, co dziś zjesz?`:"Co dziś zjesz?");
+  $("c-team").innerHTML=many()?TEAM.map(i=>`<img src="${kidImg(i)}" style="width:36px;height:36px" alt="">`).join(""):"";
+  $("c-ok").textContent=many()?"✅ To wybieramy!":"✅ To wybieram!";
+  $("c-list").innerHTML=H.picks.map((x,i)=>`<button class="dish" data-i="${i}"><img src="${eimg(x.r.e)}" alt=""><span><h3>${esc(x.r.n)}</h3><span class="mut">🔊 posłuchaj</span></span></button>`).join("");
   $("c-list").querySelectorAll(".dish").forEach(b=>b.onclick=()=>{
-    $("c-list").querySelectorAll(".dish").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");PICK=H.picks[+b.dataset.i];$("c-ok").disabled=false;buzz();say(PICK.r.n)});
+    $("c-list").querySelectorAll(".dish").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");PICK=H.picks[+b.dataset.i];$("c-ok").disabled=false;buzz();snd("tap");say(PICK.r.n)});
   $("c-ok").disabled=true;
   show("choose");
-  setTimeout(()=>say([[`${S.name?S.name+", ":""}co dziś zjesz?`,"pl-PL"],...H.picks.map((x,i)=>[(i?"albo ":"")+x.r.n,"pl-PL"])]),300);
+  say([[many()?`${nm}, naradźcie się i wybierzcie razem!`:`${nm?nm+", ":""}co dziś zjesz?`,"pl-PL"],...H.picks.map((x,i)=>[(i?"albo ":"")+x.r.n,"pl-PL"])],300);
 }
 $("c-back").onclick=()=>{show("hunt");renderHunt()};
 $("c-ok").onclick=()=>finish();
 
 /* ---------- NAGRODA ---------- */
 function finish(){
-  const r=PICK.r;
-  G.stars+=H.stars+3;G.hunts++;G.hist[r.n]=Date.now();
+  const r=PICK.r,earned=H.stars+3;
+  G.stars+=earned;G.hunts++;G.hist[r.n]=Date.now();if(many())G.team=(G.team||0)+1;
   const free=STICKERS.filter(s=>!G.stickers.includes(s));const st=free.length?rnd(free):rnd(STICKERS);
   if(free.length)G.stickers.push(st);
   save();
-  $("reward").innerHTML=`<h1>Ty to ${gf("wybrałeś","wybrałaś")}!</h1><div class="plate">${r.e}</div><h2>${esc(r.n)}</h2>
-    <p class="mut big" style="font-size:20px">${gf("Szef","Szefowa")} kuchni: ${esc(S.name||"Ty")} 🧑‍🍳</p>
-    <div class="sticker-new"><span>${st}</span>Nowa naklejka!</div>
-    <div class="pill" style="margin-bottom:20px">⭐ +${H.stars+3}</div>
-    <button class="btn huge" id="r-album">📒 Moje naklejki</button>
+  const nm=names(TEAM);
+  $("reward").innerHTML=`<h1>${many()?"Wy":"Ty"} to ${tf("wybrałeś","wybrałaś","wybraliście","wybrałyście")}!</h1><img class="plate" src="${eimg(r.e)}" alt=""><h2>${esc(r.n)}</h2>
+    <p class="mut big" style="font-size:19px">${many()?(allGirls()?"Szefowe":"Szefowie"):tf("Szef","Szefowa")} kuchni: ${esc(nm||"Ty")} 🧑‍🍳</p>
+    ${many()?`<div class="row" style="justify-content:center">${TEAM.map(avatar).join("")}</div>`:""}
+    <div class="sticker-new"><span>${st}</span>Nowa naklejka${many()?" dla drużyny":""}!</div>
+    <div><span class="pill" style="margin-bottom:20px">⭐ +${earned}</span></div>
+    <button class="btn huge" id="r-album">📒 ${many()?"Nasze":"Moje"} naklejki</button>
     <button class="btn sec huge" id="r-recipe" style="margin-top:14px;font-size:20px">📖 Przepis dla rodzica</button>
     <button class="btn sec huge" id="r-home" style="margin-top:14px;font-size:20px">🏠 Koniec</button>`;
-  show("reward");confetti(["🎉","⭐","🎊",r.e,st]);setTimeout(()=>confetti(),900);
-  say(`${S.name?S.name+"! ":""}Ty to ${gf("wybrałeś","wybrałaś")}! ${r.n}! Dostajesz nową naklejkę!`);
-  $("r-album").onclick=()=>renderAlbum();
+  show("reward");snd("reward");setTimeout(()=>snd("sticker"),1500);
+  confetti(["🎉","⭐","🎊",st]);setTimeout(()=>confetti(),900);
+  say(`${nm?nm+"! ":""}${many()?"Wy":"Ty"} to ${tf("wybrałeś","wybrałaś","wybraliście","wybrałyście")}! ${r.n}! ${many()?"Drużyna dostaje":"Dostajesz"} nową naklejkę!`,600);
+  $("r-album").onclick=()=>{snd("pop");renderAlbum()};
   $("r-recipe").onclick=()=>renderRecipe(r,"reward",H.found);
   $("r-home").onclick=()=>goHome();
 }
 
 /* ---------- ALBUM ---------- */
 function renderAlbum(){
-  const b=[["🥇","Pierwsze polowanie",G.hunts>=1],["🔟","10 polowań",G.hunts>=10],["🗣️","10 słówek",G.words.length>=10],["⭐","50 gwiazdek",G.stars>=50],["🏅","Pół albumu",G.stickers.length>=15],["👑","Cały album",G.stickers.length>=STICKERS.length]];
-  const lc=S.lang==="off"?null:LANGS[S.lang];
-  $("album").innerHTML=`<div class="top"><button class="ico-btn" id="al-back">⬅️</button><b class="big" style="font-size:24px">📒 Moje naklejki</b><span class="pill">⭐ ${G.stars}</span></div>
+  const team=S.kids.length>1;
+  const b=[["🥇","Pierwsze polowanie",G.hunts>=1],["🔟","10 polowań",G.hunts>=10],["🗣️","10 słówek",G.words.length>=10],["⭐","100 gwiazdek",G.stars>=100],
+    ["🏅","Pół albumu",G.stickers.length>=STICKERS.length/2],["👑","Cały album",G.stickers.length>=STICKERS.length]];
+  if(team)b.splice(1,0,["🤝","Praca zespołowa",(G.team||0)>=1],["🏆","5 wspólnych polowań",(G.team||0)>=5]);
+  const lc=hasLang()?LANGS[S.lang]:null;
+  $("album").innerHTML=`<div class="top"><button class="ico-btn" id="al-back">⬅️</button><b class="big" style="font-size:24px">📒 ${team?"Nasze":"Moje"} naklejki</b><span class="pill">⭐ ${G.stars}</span></div>
+    ${team?`<div class="row" style="justify-content:center">${S.kids.map((_,i)=>avatar(i)).join("")}</div>`:""}
     <div class="card"><div class="album">${STICKERS.map(s=>`<div class="${G.stickers.includes(s)?"":"no"}">${s}</div>`).join("")}</div>
-    <p class="mut small" style="text-align:center;margin:10px 0 0">${G.stickers.length} z ${STICKERS.length}</p></div>
+    <p class="mut small" style="text-align:center;margin:10px 0 0">${G.stickers.length} z ${STICKERS.length}${team?" · album całej drużyny":""}</p></div>
     <div class="card"><h3 style="margin-bottom:8px">Odznaki</h3><div class="badges">${b.map(([e,t,ok])=>`<div class="badge ${ok?"":"no"}"><b>${e}</b><span>${t}</span></div>`).join("")}</div></div>
-    ${lc&&G.words.length?`<div class="card"><h3 style="margin-bottom:8px">Moje słówka 🗣️</h3><div class="chips">${G.words.filter(k=>P[k]).map(k=>`<button class="chip" data-w="${k}">${P[k][1]} ${esc(fw(k))}</button>`).join("")}</div></div>`:""}`;
+    ${lc&&G.words.length?`<div class="card"><h3 style="margin-bottom:8px">${team?"Nasze":"Moje"} słówka ${lc[3]}</h3><div class="chips">${G.words.filter(k=>P[k]).map(k=>`<button class="chip" data-w="${k}"><img src="${pimg(k)}" alt="">${esc(fw(k))}</button>`).join("")}</div></div>`:""}`;
   show("album");
   $("al-back").onclick=()=>goHome();
   $("album").querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>say([[fw(b.dataset.w),lc[1]]]));
@@ -578,10 +648,10 @@ function renderAlbum(){
 let RECIPE_BACK="home";
 function renderRecipe(r,back,found){
   RECIPE_BACK=back;const have=new Set([...(found||[]),...S.staples]);
-  const ing=Object.entries(r.i).map(([k,q])=>`<li>${P[k]?P[k][1]:""} ${esc(P[k]?P[k][0]:k)} – ${esc(q)} ${found?(have.has(k)?'<span class="have">✔</span>':'<span class="miss">brak</span>'):""}</li>`).join("");
+  const ing=Object.entries(r.i).map(([k,q])=>`<li>${esc(P[k]?P[k][0]:k)} – ${esc(q)} ${found?(have.has(k)?'<span class="have">✔</span>':'<span class="miss">brak</span>'):""}</li>`).join("");
   const opt=Object.entries(r.o||{}).map(([k,q])=>`<li>${esc(P[k]?P[k][0]:k)} – ${esc(q)}</li>`).join("");
   $("recipe").innerHTML=`<div class="top"><button class="ico-btn" id="rc-back">⬅️</button><span></span><span></span></div>
-    <div style="text-align:center"><div style="font-size:80px">${r.e}</div><h1 style="font-size:30px">${esc(r.n)}</h1>
+    <div style="text-align:center"><img src="${eimg(r.e)}" style="width:100px;height:100px" alt=""><h1 style="font-size:30px">${esc(r.n)}</h1>
     <p class="mut">⏱️ ${r.t} min · 🍽️ ${r.s} ${r.s===1?"porcja":r.s<5?"porcje":"porcji"} · ${r.k} kcal/porcja</p></div>
     <div class="card recipe"><h3>Składniki</h3><ul>${ing}</ul>${opt?`<p class="mut small" style="margin:6px 0 0">Opcjonalnie:</p><ul class="small">${opt}</ul>`:""}
     <p class="mut small">Sól, pieprz, olej i woda – według uznania.</p></div>
@@ -593,84 +663,92 @@ function renderRecipe(r,back,found){
 /* ---------- TRYB RODZICA ---------- */
 function renderParent(){
   const grp={kids:"🧸 Dla dzieci",base:"🏠 Domowe klasyki",more:"✨ Więcej pomysłów"};
-  const meal=S.meal;
   const algNames={gluten:"gluten",jajka:"jajka",mleko:"mleko",orzechy:"orzechy","orzeszki ziemne":"orzeszki ziemne",ryby:"ryby",skorupiaki:"skorupiaki",soja:"soja",sezam:"sezam",seler:"seler",gorczyca:"gorczyca"};
-  const allIng=[...new Set(R.flatMap(r=>Object.keys(r.i)))].filter(k=>P[k]).sort((a,b)=>P[a][0].localeCompare(P[b][0],"pl"));
-  const nAllowed=allowed().length;
+  const allIng=Object.keys(P).sort((a,b)=>P[a][0].localeCompare(P[b][0],"pl"));
   $("parent").innerHTML=`<div class="top"><button class="ico-btn" id="p-back">🏠</button><b class="big" style="font-size:24px">🔒 Tryb rodzica</b><span style="width:48px"></span></div>
 
   <div class="card"><h3 class="ph">🍽️ Na jaki posiłek?</h3>
-    <div class="seg" id="p-meal">${Object.entries(MEALS).map(([k,[n,e]])=>`<button data-v="${k}" class="${meal===k?"on":""}">${e}<br><span class="small">${n}</span></button>`).join("")}</div>
+    <div class="seg" id="p-meal">${Object.entries(MEALS).map(([k,[n,e]])=>`<button data-v="${k}" class="${S.meal===k?"on":""}">${e}<br><span class="small">${n}</span></button>`).join("")}</div>
     <h3 class="ph" style="margin-top:14px">⏱️ Maksymalny czas</h3>
     <div class="seg" id="p-time">${[[0,"bez limitu"],[15,"15 min"],[30,"30 min"],[45,"45 min"]].map(([v,n])=>`<button data-v="${v}" class="${S.maxT===v?"on":""}">${n}</button>`).join("")}</div>
     <label class="opt" style="margin-top:12px"><span style="flex:1"><b>🚫🍭 Bez słodkich dań</b><br><span class="small mut">na śniadanie, obiad i kolację</span></span><input type="checkbox" class="sw" id="p-sweet" ${S.noSweet?"checked":""}></label>
-    <p class="small mut" id="p-cnt">Pasujących dań: <b>${nAllowed}</b></p>
+    <p class="small mut" id="p-cnt">Pasujących dań: <b>${allowed().length}</b></p>
   </div>
 
   <div class="card"><h3 class="ph">👨‍👩‍👧 Propozycje</h3>
-    <label class="opt"><span style="flex:1"><b>Zatwierdzam dania przed wyborem</b><br><span class="small mut">po polowaniu dziecko woła rodzica (PIN)</span></span><input type="checkbox" class="sw" id="p-appr" ${S.approve?"checked":""}></label>
-    <p style="margin:10px 0 6px"><b>Ile dań do wyboru dla dziecka?</b></p>
+    <label class="opt"><span style="flex:1"><b>Zatwierdzam dania przed wyborem</b><br><span class="small mut">po szukaniu dzieci wołają rodzica (PIN)</span></span><input type="checkbox" class="sw" id="p-appr" ${S.approve?"checked":""}></label>
+    <p style="margin:10px 0 6px"><b>Ile dań do wyboru?</b></p>
     <div class="seg" id="p-n">${[2,3].map(v=>`<button data-v="${v}" class="${S.n===v?"on":""}">${v}</button>`).join("")}</div>
   </div>
 
-  <div class="card"><h3 class="ph">🧒 Dziecko</h3>
-    <input type="text" id="p-name" value="${esc(S.name)}" placeholder="Imię dziecka" maxlength="20">
-    <div class="seg" id="p-girl" style="margin-top:10px"><button data-v="0" class="${S.girl?"":"on"}">👦 Chłopiec</button><button data-v="1" class="${S.girl?"on":""}">👧 Dziewczynka</button></div>
-    <div class="seg" id="p-level" style="margin-top:10px"><button data-v="small" class="${S.level==="small"?"on":""}">👶 4–7 lat</button><button data-v="big" class="${S.level==="big"?"on":""}">🧒 7–10 lat</button></div>
-    <p style="margin:12px 0 6px"><b>Język obcy w zadaniach</b></p>
-    <div class="seg" id="p-lang">${[["en","🇬🇧 EN"],["de","🇩🇪 DE"],["es","🇪🇸 ES"],["off","wył."]].map(([v,n])=>`<button data-v="${v}" class="${S.lang===v?"on":""}">${n}</button>`).join("")}</div>
-    <label class="opt" style="margin-top:12px"><span style="flex:1"><b>🔊 Głos czyta nazwy</b></span><input type="checkbox" class="sw" id="p-voice" ${S.voice?"checked":""}></label>
+  <div class="card"><h3 class="ph">👧👦 Dzieci</h3>
+    ${S.kids.map((k,i)=>`<div class="card kidcard" style="border-color:${KIDCOL[i%4]};background:#FFF9F1;box-shadow:none">
+      <div class="row"><input type="text" data-name="${i}" value="${esc(k.name)}" placeholder="Imię" maxlength="20" style="flex:1;width:auto">${S.kids.length>1?`<button class="ico-btn" data-del="${i}" aria-label="Usuń">🗑️</button>`:""}</div>
+      <div class="seg" data-girl="${i}" style="margin-top:8px"><button data-v="0" class="${k.girl?"":"on"}">👦 Chłopiec</button><button data-v="1" class="${k.girl?"on":""}">👧 Dziewczynka</button></div>
+      <div class="seg" data-level="${i}" style="margin-top:8px"><button data-v="small" class="${k.level==="small"?"on":""}">4–7 lat</button><button data-v="big" class="${k.level==="big"?"on":""}">7–10 lat</button></div></div>`).join("")}
+    ${S.kids.length<4?`<button class="btn sec sm" id="p-addkid">➕ Dodaj dziecko</button>`:""}
   </div>
 
-  <div class="card"><h3 class="ph">🧭 Gdzie dziecko może zaglądać</h3>
+  <div class="card"><h3 class="ph">🌍 Język i dźwięk</h3>${langPicker()}
+    <label class="opt" style="margin-top:12px"><span style="flex:1"><b>🔊 Głos czyta nazwy</b></span><input type="checkbox" class="sw" id="p-voice" ${S.voice?"checked":""}></label>
+    <label class="opt"><span style="flex:1"><b>🎵 Dźwięki</b></span><input type="checkbox" class="sw" id="p-sound" ${S.sound?"checked":""}></label>
+  </div>
+
+  <div class="card"><h3 class="ph">🧭 Gdzie dzieci mogą zaglądać</h3>
     ${Object.entries(ZONES).map(([z,[n,e]])=>`<label class="opt"><span style="font-size:26px">${e}</span><b style="flex:1">${n}</b><input type="checkbox" class="sw" data-zone="${z}" ${S.zones.includes(z)?"checked":""}></label>`).join("")}
     <p class="small mut">Zadania dotyczą tylko jedzenia – bez noży i kuchenki.</p>
   </div>
 
   <details class="card"><summary>⭐ Zawsze w domu</summary>
-    <p class="small mut">Tych produktów dziecko nie szuka. Aplikacja zakłada, że je masz.</p>
-    <div class="chips" id="p-staples">${allIng.map(k=>`<button class="chip ${S.staples.includes(k)?"on":""}" data-k="${k}">${P[k][1]} ${esc(P[k][0])}</button>`).join("")}</div>
+    <p class="small mut">Tych produktów dzieci nie szukają. Aplikacja zakłada, że je masz.</p>
+    <div class="chips" id="p-staples">${allIng.map(k=>`<button class="chip ${S.staples.includes(k)?"on":""}" data-k="${k}"><img src="${pimg(k)}" alt="" loading="lazy">${esc(P[k][0])}</button>`).join("")}</div>
   </details>
 
   <details class="card"><summary>⚠️ Alergeny – wyklucz</summary>
-    <div class="chips" style="margin-top:10px" id="p-alg">${Object.keys(D.ALG).map(a=>`<button class="chip ${S.alg.includes(a)?"on":""}" data-a="${esc(a)}">${esc(algNames[a]||a)}</button>`).join("")}</div>
+    <div class="chips" style="margin-top:10px" id="p-alg">${Object.keys(D.ALG).map(a=>`<button class="chip ${S.alg.includes(a)?"on":""}" data-a="${esc(a)}" style="padding-left:12px">${esc(algNames[a]||a)}</button>`).join("")}</div>
   </details>
 
-  ${Object.entries(grp).map(([g,gn])=>{const rs=R.filter(r=>r.gr===g);return `<details class="card"><summary>${gn} <span class="mut small" style="margin-left:auto;margin-right:8px">${rs.filter(r=>!S.off.includes(r.n)).length}/${rs.length}</span></summary>
-    <div class="row" style="margin:10px 0"><button class="btn sec" style="padding:8px 14px;font-size:15px" data-gall="${g}">Włącz wszystkie</button><button class="btn sec" style="padding:8px 14px;font-size:15px" data-gnone="${g}">Wyłącz wszystkie</button></div>
-    <div class="rlist">${rs.map(r=>`<div class="ri"><span class="e">${r.e}</span><span class="t"><b data-rec="${esc(r.n)}" style="cursor:pointer">${esc(r.n)}</b><span class="small mut">${r.t} min · ${r.m.split("").map(m=>MEALS[m]?MEALS[m][1]:"").join("")}${r.sw?" · 🍭":""}</span></span><input type="checkbox" class="sw" data-r="${esc(r.n)}" ${S.off.includes(r.n)?"":"checked"}></div>`).join("")}</div></details>`}).join("")}
+  ${Object.entries(grp).map(([g,gn])=>{const rs=R.filter(r=>r.gr===g);return `<details class="card"><summary><span style="flex:1">${gn}</span><span class="mut small">${rs.filter(r=>!S.off.includes(r.n)).length}/${rs.length}</span></summary>
+    <div class="row" style="margin:10px 0"><button class="btn sec sm" data-gall="${g}">Włącz wszystkie</button><button class="btn sec sm" data-gnone="${g}">Wyłącz wszystkie</button></div>
+    <div class="rlist">${rs.map(r=>`<div class="ri"><img src="${eimg(r.e)}" alt="" loading="lazy"><span class="t"><b data-rec="${esc(r.n)}" style="cursor:pointer">${esc(r.n)}</b><span class="small mut">${r.t} min · ${r.m.split("").map(m=>MEALS[m]?MEALS[m][1]:"").join("")}${r.sw?" · 🍭":""}</span></span><input type="checkbox" class="sw" data-r="${esc(r.n)}" ${S.off.includes(r.n)?"":"checked"}></div>`).join("")}</div></details>`}).join("")}
 
   <div class="card"><h3 class="ph">⚙️ Inne</h3>
-    <div class="row"><button class="btn sec" id="p-pin">🔑 Zmień PIN</button><button class="btn sec" id="p-reset">🗑️ Wyzeruj naklejki</button></div>
-    <p class="small mut" style="margin-top:12px">Mały Szef ${VER} · przepisy z „Co z lodówki?” · dane zostają na tym telefonie</p>
+    <div class="row"><button class="btn sec sm" id="p-pin">🔑 Zmień PIN</button><button class="btn sec sm" id="p-reset">🗑️ Wyzeruj naklejki</button></div>
+    <p class="small mut" style="margin-top:12px">Mały Szef ${VER} · ${R.length} przepisów · ${Object.keys(P).length} produktów · dane zostają na tym telefonie<br>Ilustracje: Fluent Emoji (Microsoft, MIT)</p>
   </div>`;
   show("parent");
   const P_=$("parent");
   const seg=(id,key,num)=>P_.querySelectorAll(`#${id} button`).forEach(b=>b.onclick=()=>{S[key]=num?+b.dataset.v:b.dataset.v;save();renderParentKeep()});
-  seg("p-meal","meal");seg("p-time","maxT",1);seg("p-n","n",1);seg("p-level","level");seg("p-lang","lang");
-  P_.querySelectorAll("#p-girl button").forEach(b=>b.onclick=()=>{S.girl=b.dataset.v==="1";save();renderParentKeep()});
+  seg("p-meal","meal");seg("p-time","maxT",1);seg("p-n","n",1);
+  bindLang(renderParentKeep);
   $("p-sweet").onchange=e=>{S.noSweet=e.target.checked;save();renderParentKeep()};
   $("p-appr").onchange=e=>{S.approve=e.target.checked;save()};
   $("p-voice").onchange=e=>{S.voice=e.target.checked;save()};
-  $("p-name").onchange=e=>{S.name=e.target.value.trim();save()};
+  $("p-sound").onchange=e=>{S.sound=e.target.checked;save();snd("found")};
+  P_.querySelectorAll("[data-name]").forEach(i=>i.onchange=()=>{S.kids[+i.dataset.name].name=i.value.trim();save()});
+  P_.querySelectorAll("[data-girl] button,[data-level] button").forEach(b=>b.onclick=()=>{const p=b.parentElement;
+    if(p.dataset.girl)S.kids[+p.dataset.girl].girl=b.dataset.v==="1";else S.kids[+p.dataset.level].level=b.dataset.v;save();renderParentKeep()});
+  P_.querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>ask(`Usunąć ${S.kids[+b.dataset.del].name||"dziecko"}?`,"Usuń",()=>{S.kids.splice(+b.dataset.del,1);save();renderParentKeep()}));
+  if($("p-addkid"))$("p-addkid").onclick=()=>{S.kids.push({name:"",girl:false,level:"small"});save();renderParentKeep()};
   P_.querySelectorAll("[data-zone]").forEach(c=>c.onchange=()=>{S.zones=[...P_.querySelectorAll("[data-zone]:checked")].map(x=>x.dataset.zone);save()});
   P_.querySelectorAll("#p-staples .chip").forEach(b=>b.onclick=()=>{const k=b.dataset.k;S.staples=S.staples.includes(k)?S.staples.filter(x=>x!==k):[...S.staples,k];b.classList.toggle("on");save()});
-  P_.querySelectorAll("#p-alg .chip").forEach(b=>b.onclick=()=>{const a=b.dataset.a;S.alg=S.alg.includes(a)?S.alg.filter(x=>x!==a):[...S.alg,a];b.classList.toggle("on");save();$("p-cnt").innerHTML=`Pasujących dań: <b>${allowed().length}</b>`});
-  P_.querySelectorAll("[data-r]").forEach(c=>c.onchange=()=>{const n=c.dataset.r;S.off=c.checked?S.off.filter(x=>x!==n):[...S.off,n];save();$("p-cnt").innerHTML=`Pasujących dań: <b>${allowed().length}</b>`});
+  const cnt=()=>$("p-cnt").innerHTML=`Pasujących dań: <b>${allowed().length}</b>`;
+  P_.querySelectorAll("#p-alg .chip").forEach(b=>b.onclick=()=>{const a=b.dataset.a;S.alg=S.alg.includes(a)?S.alg.filter(x=>x!==a):[...S.alg,a];b.classList.toggle("on");save();cnt()});
+  P_.querySelectorAll("[data-r]").forEach(c=>c.onchange=()=>{const n=c.dataset.r;S.off=c.checked?S.off.filter(x=>x!==n):[...S.off,n];save();cnt()});
   P_.querySelectorAll("[data-gall]").forEach(b=>b.onclick=()=>{const ns=R.filter(r=>r.gr===b.dataset.gall).map(r=>r.n);S.off=S.off.filter(x=>!ns.includes(x));save();renderParentKeep()});
   P_.querySelectorAll("[data-gnone]").forEach(b=>b.onclick=()=>{const ns=R.filter(r=>r.gr===b.dataset.gnone).map(r=>r.n);S.off=[...new Set([...S.off,...ns])];save();renderParentKeep()});
   P_.querySelectorAll("[data-rec]").forEach(b=>b.onclick=()=>renderRecipe(R.find(r=>r.n===b.dataset.rec),"parent"));
   $("p-pin").onclick=()=>askPin("Nowy PIN",()=>toast("PIN zmieniony"),true);
-  $("p-reset").onclick=()=>ask("Wyzerować naklejki, gwiazdki i słówka?","Wyzeruj",()=>{G={stars:0,stickers:[],words:[],hunts:0,hist:G.hist};save();toast("Wyzerowano")});
-  $("p-back").onclick=()=>goHome();
+  $("p-reset").onclick=()=>ask("Wyzerować naklejki, gwiazdki i słówka?","Wyzeruj",()=>{G={stars:0,stickers:[],words:[],hunts:0,team:0,hist:G.hist};save();toast("Wyzerowano")});
+  $("p-back").onclick=()=>{if(S.kids.some(k=>!k.name)){toast("Wpisz imię każdego dziecka");return}goHome()};
 }
-function renderParentKeep(){ // odśwież, zachowując otwarte sekcje i przewinięcie
+function renderParentKeep(){
   const open=[...document.querySelectorAll("#parent details")].map(d=>d.open),y=window.scrollY;
   renderParent();document.querySelectorAll("#parent details").forEach((d,i)=>d.open=open[i]);window.scrollTo(0,y);
 }
 
 /* ---------- start ---------- */
-if(!S.setupDone||!S.pin){show("setup");renderSetup()}else goHome();
+if(!S.setupDone||!S.pin||!S.kids.length){show("setup");renderSetup()}else goHome();
 if("serviceWorker" in navigator&&location.protocol==="https:"){navigator.serviceWorker.register("sw.js").catch(()=>{})}
 </script>
 </body>
