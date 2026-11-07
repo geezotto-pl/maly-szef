@@ -8,8 +8,9 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 import products
 
-ASSETS = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/emoji/f3d/package/assets"
-OUT = sys.argv[2] if len(sys.argv) > 2 else "out/img"
+_main = __name__ == "__main__"
+ASSETS = sys.argv[1] if _main and len(sys.argv) > 1 else "/home/claude/emoji/f3d/package/assets"
+OUT = sys.argv[2] if _main and len(sys.argv) > 2 else "out/img"
 os.makedirs(OUT, exist_ok=True)
 N = 640          # płótno robocze (4× supersampling)
 SIZE = 160       # rozmiar wynikowy
@@ -84,7 +85,7 @@ def label(base, cx, cy, d, e, ring):
     dr.ellipse((cx - d // 2 - 10, cy - d // 2 - 10, cx + d // 2 + 10, cy + d // 2 + 10), fill=ring)
     dr.ellipse((cx - d // 2, cy - d // 2, cx + d // 2, cy + d // 2), fill=WHITE)
     base.alpha_composite(lb)
-    ic = emoji(e, int(d * .82)); base.alpha_composite(ic, (cx - ic.width // 2, cy - ic.height // 2))
+    ic = emoji(e, int(d * .9)); base.alpha_composite(ic, (cx - ic.width // 2, cy - ic.height // 2))
 
 def outline_of(mask, col, width=10):
     """Delikatny kontur, żeby białe opakowania odcinały się od tła."""
@@ -103,24 +104,24 @@ def package(kind, color, e):
         shadow(base, (150, 520, 490, 580))
         add(lambda d: d.polygon([(130, 200), (510, 200), (450, 550), (190, 550)]), col)
         add(lambda d: d.rounded_rectangle((110, 160, 530, 220), 20), (230, 232, 236, 255), .4, .15)
-        cx, cy, ld = 320, 370, 200
+        cx, cy, ld = 320, 375, 250
     elif kind == "tub":
         shadow(base, (90, 470, 550, 540))
         add(lambda d: d.rounded_rectangle((100, 240, 540, 510), 50), col)
         add(lambda d: d.rounded_rectangle((85, 200, 555, 268), 26), mix(col, BLACK, .08) if not is_white else (230, 232, 236, 255), .3, .12)
-        cx, cy, ld = 320, 385, 190
+        cx, cy, ld = 320, 385, 225
     elif kind == "block":
         shadow(base, (90, 480, 560, 550))
         add(lambda d: d.polygon([(150, 210), (530, 210), (480, 290), (100, 290)]), col, .55, .05)
         add(lambda d: d.rounded_rectangle((100, 280, 480, 510), 18), col)
         add(lambda d: d.polygon([(480, 290), (530, 210), (530, 430), (480, 510)]), mix(col, BLACK, .15), .1, .2)
-        cx, cy, ld = 290, 395, 190
+        cx, cy, ld = 290, 395, 215
     elif kind == "box":
         shadow(base, (140, 540, 520, 600))
         add(lambda d: d.polygon([(190, 80), (480, 80), (430, 140), (140, 140)]), col, .55, .05)
         add(lambda d: d.rounded_rectangle((140, 130, 430, 570), 16), col)
         add(lambda d: d.polygon([(430, 140), (480, 80), (480, 510), (430, 570)]), mix(col, BLACK, .2), .1, .2)
-        cx, cy, ld = 285, 340, 210
+        cx, cy, ld = 285, 350, 260
     elif kind in ("bag", "sachet"):
         top, bot, l, r = (90, 570, 140, 500) if kind == "bag" else (120, 540, 170, 470)
         shadow(base, (l - 10, bot - 30, r + 10, bot + 30))
@@ -131,12 +132,12 @@ def package(kind, color, e):
             z.append((r - 5, top + 60)); d.polygon(z)
         add(bag, col)
         add(lambda d: d.rectangle((l + 10, top + 50, r - 10, top + 75)), mix(col, BLACK, .12), .1, .1)
-        cx, cy, ld = (l + r) // 2, (top + bot) // 2 + 40, 210 if kind == "bag" else 180
+        cx, cy, ld = (l + r) // 2, (top + bot) // 2 + 35, 290 if kind == "bag" else 240
     elif kind == "bottle":
         shadow(base, (190, 560, 450, 610))
         add(lambda d: d.rounded_rectangle((250, 70, 390, 140), 18), mix(col, BLACK, .35), .3, .2)
         add(lambda d: (d.rounded_rectangle((180, 210, 460, 590), 60), d.polygon([(265, 130), (375, 130), (440, 230), (200, 230)])), col)
-        cx, cy, ld = 320, 410, 190
+        cx, cy, ld = 320, 410, 230
     elif kind in ("jar", "spice"):
         if kind == "jar": x0, x1, y0, y1, lid = 150, 490, 210, 570, (170, 140, 470, 225)
         else: x0, x1, y0, y1, lid = 205, 435, 240, 570, (215, 160, 425, 250)
@@ -144,24 +145,24 @@ def package(kind, color, e):
         add(lambda d: d.rounded_rectangle((x0, y0, x1, y1), 60), col)
         lc = (226, 69, 69, 255) if kind == "spice" else (mix(col, BLACK, .35) if not is_white else (90, 140, 220, 255))
         add(lambda d: d.rounded_rectangle(lid, 22), lc, .35, .2)
-        cx, cy, ld = (x0 + x1) // 2, (y0 + y1) // 2 + 10, min(210, x1 - x0 - 50)
+        cx, cy, ld = (x0 + x1) // 2, (y0 + y1) // 2 + 10, x1 - x0 - 40
     elif kind == "can":
         shadow(base, (150, 540, 490, 600))
         add(lambda d: d.rounded_rectangle((160, 130, 480, 570), 40), col)
         add(lambda d: d.ellipse((160, 95, 480, 165)), (205, 210, 218, 255), .45, .2)
         add(lambda d: (d.rectangle((160, 150, 480, 175)), d.rectangle((160, 530, 480, 550))), (180, 186, 196, 255), .3, .2)
-        cx, cy, ld = 320, 350, 220
+        cx, cy, ld = 320, 350, 280
     elif kind == "carton":
         shadow(base, (150, 550, 490, 610))
         add(lambda d: d.polygon([(170, 200), (320, 70), (470, 200)]), mix(col, BLACK, .06), .4, .1)
         add(lambda d: d.rounded_rectangle((170, 190, 470, 580), 14), col)
         add(lambda d: d.rectangle((300, 40, 340, 90)), mix(col, BLACK, .2), .2, .2)
-        cx, cy, ld = 320, 385, 210
+        cx, cy, ld = 320, 390, 260
     elif kind == "tray":
-        shadow(base, (70, 470, 570, 560))
-        add(lambda d: d.polygon([(70, 250), (570, 250), (520, 500), (120, 500)]), (236, 238, 242, 255), .3, .15)
-        add(lambda d: d.rounded_rectangle((120, 270, 520, 470), 70), col, .1, .25)
-        cx, cy, ld = 320, 365, 190
+        shadow(base, (60, 490, 580, 590))
+        add(lambda d: d.polygon([(50, 170), (590, 170), (530, 530), (110, 530)]), (236, 238, 242, 255), .3, .15)
+        add(lambda d: d.rounded_rectangle((105, 195, 535, 505), 80), col, .1, .25)
+        cx, cy, ld = 320, 350, 270
     else:
         raise ValueError(kind)
     for im, m in layers:
@@ -170,7 +171,7 @@ def package(kind, color, e):
     if kind not in ("tray",):
         highlight(base, (cx - ld // 2 - 70 if kind not in ("bottle",) else 205, 230, cx - ld // 2 - 45 if kind not in ("bottle",) else 228, 470), 12, 80)
     if kind == "tray":  # folia
-        f = Image.new("RGBA", (N, N), (0, 0, 0, 0)); ImageDraw.Draw(f).polygon([(110, 270), (300, 270), (200, 480), (140, 480)], fill=(255, 255, 255, 70))
+        f = Image.new("RGBA", (N, N), (0, 0, 0, 0)); ImageDraw.Draw(f).polygon([(100, 195), (260, 195), (170, 505), (120, 505)], fill=(255, 255, 255, 60))
         base.alpha_composite(f.filter(ImageFilter.GaussianBlur(4)))
     label(base, cx, cy, ld, e, ring)
     return base
@@ -239,6 +240,56 @@ def drawn(name):
                 r = math.radians(ang - 90); cx, cy = x + 42 * math.cos(r), y + 42 * math.sin(r)
                 blob(lambda dd, cx=cx, cy=cy: (dd.ellipse((cx - 38, cy - 30, cx + 38, cy + 30)), dd.polygon([(cx - 38, cy), (cx, cy - 46), (cx + 38, cy), (cx, cy + 40)])), (46, 150, 60, 255), .35, .25)
         blob(lambda dd: dd.rounded_rectangle((282, 455, 358, 495), 12), (220, 60, 60, 255), .3, .2)
+    elif name == "mozzarella":
+        for (x, y, r) in [(230, 380, 140), (410, 400, 120), (320, 250, 115)]:
+            shadow(base, (x - r, y + r - 30, x + r, y + r + 30), 50)
+        for (x, y, r) in [(230, 380, 140), (410, 400, 120), (320, 250, 115)]:
+            blob(lambda dd, x=x, y=y, r=r: dd.ellipse((x - r, y - r, x + r, y + r)), (250, 250, 246, 255), .2, .12)
+            highlight(base, (x - r // 2, y - r // 2 - 10, x - r // 4, y), 14, 120)
+    else:
+        raise ValueError(name)
+    return base
+
+def plate():
+    base = Image.new("RGBA", (N, N), (0, 0, 0, 0))
+    shadow(base, (40, 470, 600, 610), 60)
+    im, m = shape_layer(lambda d: d.ellipse((30, 120, 610, 580)), (246, 244, 240, 255), .2, .1)
+    base.alpha_composite(outline_of(m, (215, 208, 196, 255), 4)); base.alpha_composite(im)
+    im, m = shape_layer(lambda d: d.ellipse((110, 180, 530, 520)), (255, 255, 255, 255), .0, .05)
+    base.alpha_composite(im)
+    return base
+
+def plate_of(specs):
+    """Talerz z 2–3 składnikami (obrazki produktów)."""
+    base = plate()
+    pos = {1: [(320, 350, 380)], 2: [(215, 330, 300), (425, 330, 300)], 3: [(200, 290, 260), (440, 290, 260), (320, 430, 270)]}[len(specs)]
+    for spec, (x, y, s) in zip(specs, pos):
+        im = make_big(spec); bb = im.getbbox(); im = im.crop(bb)
+        k = s / max(im.size); im = im.resize((int(im.width * k), int(im.height * k)), Image.LANCZOS)
+        base.alpha_composite(im, (x - im.width // 2, y - im.height // 2))
+    return base
+
+def dish_drawn(name):
+    base = plate(); d = ImageDraw.Draw(base)
+    def blob(fn, col, light=.35, dark=.2):
+        im, m = shape_layer(fn, col, light, dark); base.alpha_composite(outline_of(m, mix(col, BLACK, .3), 4)); base.alpha_composite(im)
+    if name == "kopytka":
+        for i, (x, y) in enumerate([(220, 280), (330, 250), (440, 290), (200, 390), (310, 370), (420, 400), (320, 470)]):
+            blob(lambda dd, x=x, y=y: dd.polygon([(x - 70, y), (x - 25, y - 38), (x + 70, y - 10), (x + 25, y + 30)]), (246, 222, 150, 255), .35, .15)
+            d.line((x - 10, y - 25, x + 5, y + 15), fill=(220, 190, 120, 255), width=6)
+        for x, y in [(260, 330), (380, 320), (350, 420), (250, 440)]:
+            d.ellipse((x - 9, y - 9, x + 9, y + 9), fill=(70, 160, 70, 255))
+    elif name == "kluski":
+        for x, y, r in [(220, 290, 60), (330, 260, 55), (440, 300, 58), (240, 400, 62), (350, 380, 60), (450, 420, 52), (330, 470, 50)]:
+            blob(lambda dd, x=x, y=y, r=r: (dd.ellipse((x - r, y - r * .7, x + r, y + r * .7)), dd.ellipse((x - r * .6, y - r * .9, x + r * .5, y + r * .3))), (250, 232, 170, 255), .35, .15)
+        for x, y in [(280, 340), (390, 320), (300, 440)]:
+            d.ellipse((x - 14, y - 9, x + 14, y + 9), fill=(255, 210, 90, 255))
+    elif name == "placki":
+        for x, y, r in [(220, 300, 115), (420, 300, 115), (320, 420, 120)]:
+            blob(lambda dd, x=x, y=y, r=r: dd.ellipse((x - r, y - r * .78, x + r, y + r * .78)), (214, 150, 60, 255), .35, .3)
+            for j in range(6):
+                a = j * 1.1; d.line((x + math.cos(a) * r * .3, y + math.sin(a) * r * .25, x + math.cos(a) * r * .7, y + math.sin(a) * r * .55), fill=(170, 105, 35, 255), width=5)
+        blob(lambda dd: dd.ellipse((280, 380, 380, 440)), (255, 255, 250, 255), .1, .08)
     else:
         raise ValueError(name)
     return base
@@ -248,7 +299,9 @@ def fit(im):
     s = 600 / max(im.size); im = im.resize((max(1, int(im.width * s)), max(1, int(im.height * s))), Image.LANCZOS)
     c = Image.new("RGBA", (N, N), (0, 0, 0, 0)); c.alpha_composite(im, ((N - im.width) // 2, (N - im.height) // 2)); return c
 
-def make(spec):
+def make(spec): return make_big(spec).resize((SIZE, SIZE), Image.LANCZOS)
+
+def make_big(spec):
     if spec.startswith("p:"):
         _, kind, col, e = spec.split(":"); im = fit(package(kind, col, e))
     elif spec.startswith("d:"):
@@ -257,7 +310,7 @@ def make(spec):
         _, e, args = spec.split(":"); h, s, v = map(float, args.split(",")); im = tint(emoji(e, N), h, s, v)
     else:
         im = emoji(spec, N)
-    return im.resize((SIZE, SIZE), Image.LANCZOS)
+    return im
 
 def save(im, name): im.save(os.path.join(OUT, name + ".webp"), "WEBP", quality=88, method=6)
 

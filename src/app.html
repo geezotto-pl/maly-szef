@@ -211,7 +211,7 @@ const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 /* ---------- dane ---------- */
 // P[id] = [nazwa, strefa, kolor, en, de, es, słowo, dopełniacz l.mn., błędne zapisy, podpowiedź pisowni]
 const P=D.P, R=D.R;
-const pimg=k=>`img/${k}.webp`, eimg=c=>`img/e-${c}.webp`;
+const pimg=k=>`img/${k}.webp`, eimg=c=>`img/e-${c}.webp`, dimg=r=>`img/${r.im}.webp`;
 const ZONES={L:["Lodówka","🧊","do lodówki"],V:["Warzywa","🥕","do warzyw"],F:["Owoce","🍎","do owoców"],S:["Szafka","🗄️","do szafki"],C:["Słodycze","🍪","do słodyczy"],Z:["Zamrażarka","❄️","do zamrażarki"]};
 const COL={r:["czerwony","#EF4444","red","rot","rojo"],y:["żółty","#FACC15","yellow","gelb","amarillo"],g:["zielony","#22C55E","green","grün","verde"],
   o:["pomarańczowy","#FB923C","orange","orange","naranja"],w:["biały","#FFFFFF","white","weiß","blanco"],b:["brązowy","#92582F","brown","braun","marrón"],
@@ -306,8 +306,10 @@ function matches(found){
     return {r,miss,ok:miss.length<=2&&(req.length-miss.length)>=Math.ceil(req.length/2),score}})
    .filter(x=>x.ok).sort((a,b)=>a.score-b.score);
 }
+const MAINS=["kurczak","udka","indyk","mielone","schab","wolowina","boczek","szynka","kielbasa","parowki","kabanosy","losos","dorsz","tunczyk","paluszki_rybne","makaron","ryz","ziemniaki","frytki_mroz","pierogi_mroz","chleb","jajka"];
+const mainOf=r=>Object.keys(r.i).find(k=>MAINS.includes(k))||r.im;
 function diverse(list,n){const out=[],seen=new Set();
-  list.forEach(x=>{if(out.length<n&&!seen.has(x.r.e)){out.push(x);seen.add(x.r.e)}});
+  list.forEach(x=>{const m=mainOf(x.r);if(out.length<n&&!seen.has(m)){out.push(x);seen.add(m)}});
   list.forEach(x=>{if(out.length<n&&!out.includes(x))out.push(x)});return out}
 
 /* ---------- PIN ---------- */
@@ -522,11 +524,11 @@ function miniTask(k){
   if(big){ // 7–10 lat: tłumaczenie, pisownia, kolor w obcym języku
     if(L)types.push("transl","transl");
     if(p[9])types.push("spell","spell");
-    if(L&&p[2])types.push("colorword");
-    if(!types.length&&p[2])types.push("color");
+    if(L&&p[2]&&p[10])types.push("colorword");
+    if(!types.length&&p[2]&&p[10])types.push("color");
   }else{   // 4–7 lat: liczenie, kolor, pierwsza litera, czasem słówko do powtórzenia
     if(p[7])types.push("count","count");
-    if(p[2])types.push("color","color");
+    if(p[2]&&p[10])types.push("color","color");
     if(!DIGRAPH.test(p[6])&&LETTERS.includes(p[6][0].toUpperCase()))types.push("letter");
     if(L)types.push("word");
   }
@@ -590,7 +592,7 @@ function taskColor(k,who){ // jakiego koloru jest ten produkt?
 function taskColorWord(k,who){ // dla starszych: kolor produktu w obcym języku
   const [ln,code,idx]=LANGS[S.lang],c=P[k][2],sp=P[k][6];
   const opts=shuffle([c,...shuffle(Object.keys(COL).filter(x=>x!==c)).slice(0,2)]);
-  sheet(k,who,`<h2>Jaki to kolor po ${ln}?</h2><div class="word" style="color:var(--ink);font-size:32px">${esc(cap(sp))}</div>
+  sheet(k,who,`<h2>Jakiego koloru jest ${esc(sp)}?</h2><p class="mut">Wybierz słowo po ${ln}</p>
     <div class="opts txt">${opts.map(x=>`<button data-c="${x}"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:${COL[x][1]};border:2px solid #0002;vertical-align:-3px;margin-right:8px"></span>${esc(COL[x][idx-1])}</button>`).join("")}</div>`);
   say(`${callName(who)}jakiego koloru jest ${sp}? Powiedz po ${ln}!`);
   $("modal").querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{
@@ -639,7 +641,7 @@ function renderApprove(){
   const draw=()=>{
     $("approve").innerHTML=`<div class="top"><button class="ico-btn" id="a-back">⬅️</button><b class="big" style="font-size:22px">Wybierz ${S.n===2?"2":"2–3"} dania</b><span style="width:48px"></span></div>
     <p class="mut small">Znaleziono ${H.found.size} produktów. Zaznacz dania, które możesz dziś zrobić. ${many()?"Dzieci wybiorą":"Dziecko wybierze"} jedno z nich.</p>
-    <div class="card rlist approve-list">${c.map(x=>`<div class="ri" data-n="${esc(x.r.n)}"><img src="${eimg(x.r.e)}" alt=""><span class="t"><b>${esc(x.r.n)}</b>
+    <div class="card rlist approve-list">${c.map(x=>`<div class="ri" data-n="${esc(x.r.n)}"><img src="${dimg(x.r)}" alt=""><span class="t"><b>${esc(x.r.n)}</b>
       <span class="small ${x.miss.length?"miss":"have"}">${x.miss.length?"brakuje: "+x.miss.map(k=>P[k]?P[k][0]:k).join(", "):"masz wszystko"}</span>
       <span class="small mut"> · ${x.r.t} min</span></span><input type="checkbox" class="sw" ${sel.has(x.r.n)?"checked":""}></div>`).join("")}</div>
     <button class="btn gr huge" id="a-ok" ${sel.size?"":"disabled"}>👉 Pokaż ${many()?"dzieciom":"dziecku"} (${sel.size})</button>`;
@@ -660,7 +662,7 @@ function renderChoose(){
   $("c-title").textContent=many()?`${nm}, wybierzcie razem!`:(nm?`${nm}, co dziś zjesz?`:"Co dziś zjesz?");
   $("c-team").innerHTML=many()?TEAM.map(i=>`<img src="${kidImg(i)}" style="width:36px;height:36px" alt="">`).join(""):"";
   $("c-ok").textContent=many()?"✅ To wybieramy!":"✅ To wybieram!";
-  $("c-list").innerHTML=H.picks.map((x,i)=>`<button class="dish" data-i="${i}"><img src="${eimg(x.r.e)}" alt=""><span><h3>${esc(x.r.n)}</h3><span class="mut">🔊 posłuchaj</span></span></button>`).join("");
+  $("c-list").innerHTML=H.picks.map((x,i)=>`<button class="dish" data-i="${i}"><img src="${dimg(x.r)}" alt=""><span><h3>${esc(x.r.n)}</h3><span class="mut">🔊 posłuchaj</span></span></button>`).join("");
   $("c-list").querySelectorAll(".dish").forEach(b=>b.onclick=()=>{
     $("c-list").querySelectorAll(".dish").forEach(x=>x.classList.remove("sel"));b.classList.add("sel");PICK=H.picks[+b.dataset.i];$("c-ok").disabled=false;buzz();snd("tap");say(PICK.r.n)});
   $("c-ok").disabled=true;
@@ -678,7 +680,7 @@ function finish(){
   if(free.length)G.stickers.push(st);
   save();
   const nm=names(TEAM);
-  $("reward").innerHTML=`<h1>${many()?"Wy":"Ty"} to ${tf("wybrałeś","wybrałaś","wybraliście","wybrałyście")}!</h1><img class="plate" src="${eimg(r.e)}" alt=""><h2>${esc(r.n)}</h2>
+  $("reward").innerHTML=`<h1>${many()?"Wy":"Ty"} to ${tf("wybrałeś","wybrałaś","wybraliście","wybrałyście")}!</h1><img class="plate" src="${dimg(r)}" alt=""><h2>${esc(r.n)}</h2>
     <p class="mut big" style="font-size:19px">${many()?(allGirls()?"Szefowe":"Szefowie"):tf("Szef","Szefowa")} kuchni: ${esc(nm||"Ty")} 🧑‍🍳</p>
     ${many()?`<div class="row" style="justify-content:center">${TEAM.map(avatar).join("")}</div>`:""}
     <div class="sticker-new"><span>${st}</span>Nowa naklejka${many()?" dla drużyny":""}!</div>
@@ -719,7 +721,7 @@ function renderRecipe(r,back,found){
   const ing=Object.entries(r.i).map(([k,q])=>`<li>${esc(P[k]?P[k][0]:k)} – ${esc(q)} ${found?(have.has(k)?'<span class="have">✔</span>':'<span class="miss">brak</span>'):""}</li>`).join("");
   const opt=Object.entries(r.o||{}).map(([k,q])=>`<li>${esc(P[k]?P[k][0]:k)} – ${esc(q)}</li>`).join("");
   $("recipe").innerHTML=`<div class="top"><button class="ico-btn" id="rc-back">⬅️</button><span></span><span></span></div>
-    <div style="text-align:center"><img src="${eimg(r.e)}" style="width:100px;height:100px" alt=""><h1 style="font-size:30px">${esc(r.n)}</h1>
+    <div style="text-align:center"><img src="${dimg(r)}" style="width:100px;height:100px" alt=""><h1 style="font-size:30px">${esc(r.n)}</h1>
     <p class="mut">⏱️ ${r.t} min · 🍽️ ${r.s} ${r.s===1?"porcja":r.s<5?"porcje":"porcji"} · ${r.k} kcal/porcja</p></div>
     <div class="card recipe"><h3>Składniki</h3><ul>${ing}</ul>${opt?`<p class="mut small" style="margin:6px 0 0">Opcjonalnie:</p><ul class="small">${opt}</ul>`:""}
     <p class="mut small">Sól, pieprz, olej i woda – według uznania.</p></div>
@@ -778,7 +780,7 @@ function renderParent(){
 
   ${Object.entries(grp).map(([g,gn])=>{const rs=R.filter(r=>r.gr===g);return `<details class="card"><summary><span style="flex:1">${gn}</span><span class="mut small">${rs.filter(r=>!S.off.includes(r.n)).length}/${rs.length}</span></summary>
     <div class="row" style="margin:10px 0"><button class="btn sec sm" data-gall="${g}">Włącz wszystkie</button><button class="btn sec sm" data-gnone="${g}">Wyłącz wszystkie</button></div>
-    <div class="rlist">${rs.map(r=>`<div class="ri"><img src="${eimg(r.e)}" alt="" loading="lazy"><span class="t"><b data-rec="${esc(r.n)}" style="cursor:pointer">${esc(r.n)}</b><span class="small mut">${r.t} min · ${r.m.split("").map(m=>MEALS[m]?MEALS[m][1]:"").join("")}${r.sw?" · 🍭":""}</span></span><input type="checkbox" class="sw" data-r="${esc(r.n)}" ${S.off.includes(r.n)?"":"checked"}></div>`).join("")}</div></details>`}).join("")}
+    <div class="rlist">${rs.map(r=>`<div class="ri"><img src="${dimg(r)}" alt="" loading="lazy"><span class="t"><b data-rec="${esc(r.n)}" style="cursor:pointer">${esc(r.n)}</b><span class="small mut">${r.t} min · ${r.m.split("").map(m=>MEALS[m]?MEALS[m][1]:"").join("")}${r.sw?" · 🍭":""}</span></span><input type="checkbox" class="sw" data-r="${esc(r.n)}" ${S.off.includes(r.n)?"":"checked"}></div>`).join("")}</div></details>`}).join("")}
 
   <div class="card"><h3 class="ph">⚙️ Inne</h3>
     <div class="row"><button class="btn sec sm" id="p-pin">🔑 Zmień PIN</button><button class="btn sec sm" id="p-reset">🗑️ Wyzeruj naklejki</button></div>

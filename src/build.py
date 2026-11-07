@@ -49,7 +49,7 @@ P = {}
 for k, p in PT.items():
     sp = p["sp"]
     bad = misspell(sp) if " " not in sp else []
-    P[k] = [p["name"], p["zone"], p["col"], p["en"], p["de"], p["es"], sp, p["cnt"], bad[:4], hint(sp) if len(bad) >= 1 else ""]
+    P[k] = [p["name"], p["zone"], p["col"], p["en"], p["de"], p["es"], sp, p["cnt"], bad[:4], hint(sp) if len(bad) >= 1 else "", 0 if p["img"].startswith("p:") else 1]
 
 # ---- przepisy
 EXTRA = """Placuszki bananowe|Parówki z musztardą|Zapiekanka makaronowa z brokułem|Kurczak miodowo-musztardowy z ryżem|Nuggetsy z kurczaka|
@@ -58,33 +58,63 @@ Placuszki jogurtowe z borówkami|Pierogi ruskie|Kurczak z brokułem w sosie sero
 Parówki zapiekane w tortilli z serem|Quesadilla z kurczakiem|Placuszki dyniowe|Zapiekanka makaronowa z kurczakiem|Kurczak z ryżem z jednego garnka"""
 EXTRA = {x.strip() for x in EXTRA.split("|")}
 SKIP = {"Sałatka grecka", "Mizeria", "Surówka z kapusty"}
-EMO = [(r"pizz", "🍕"), (r"lody", "🍦"), (r"szaszłyki owoc|truskawk", "🍓"), (r"mus jabł|z jabłkami$", "🍎"), (r"koktajl|kakao", "🥤"), (r"szarlotk", "🥧"),
-       (r"ciasteczk", "🍪"), (r"babecz|muffin", "🧁"), (r"gofr", "🧇"), (r"naleś|pancake|placuszk|placki|racuch", "🥞"), (r"budyń", "🍮"),
-       (r"kisiel|galaretk", "🍒"), (r"sałatka owoc", "🍊"), (r"serek|wafle", "🥛"),
-       (r"zup|rosół|ogórkowa|pomidorowa|jarzynowa", "🍲"), (r"spaghetti|makaron|lasagne", "🍝"), (r"pierog|kopytk|kluski", "🥟"),
-       (r"parów|kabanos", "🌭"), (r"burger", "🍔"), (r"frytk", "🍟"), (r"tortill|quesadill|roladki", "🌯"), (r"kanap|tost|buźki|żołnierzyk|grzank", "🥪"),
-       (r"paluszki rybne|łoso|ryb", "🐟"), (r"nuggets|kurczak|udka|kotleciki z kurczaka", "🍗"), (r"jaj|omlet", "🍳"),
-       (r"owsiank|kasza jaglana z|kasza manna|płatki", "🥣"), (r"ryż", "🍚"), (r"kotlet|schabow|pulpe|gołąbki", "🍖"), (r"kapust|warzywa", "🥬"),
-       (r"ziemnia|zapiekank", "🥔"), (r"kasz", "🥣"), (r"twaroż|pasta", "🥣")]
+EMO = [(r"pizz", "🍕"), (r"^lody", "🍦"), (r"szaszłyki owoc", "🍓"), (r"mus jabł", "🍎"), (r"koktajl|kakao", "🥤"), (r"szarlotk", "🥧"),
+       (r"ciasteczk", "🍪"), (r"babecz|muffin", "🧁"), (r"gofr", "🧇"), (r"budyń", "🍮"), (r"kisiel|galaretk", "🍒"), (r"sałatka owoc", "🍊"),
+       (r"zup|rosół|ogórkowa", "🍲"), (r"spaghetti|makaron|lasagne", "🍝"), (r"naleś|pancake|placuszk|racuch", "🥞"), (r"pierog", "🥟"),
+       (r"parów", "🌭"), (r"burger", "🍔"), (r"frytk", "🍟"), (r"tortill|quesadill|roladki", "🌯"), (r"^(kanap|tost)|buźki|żołnierzyk|grzank", "🥪"),
+       (r"^(jajecznica|omlet|jajka sadzone)", "🍳"), (r"^owsiank|^płatki|kasza manna|kasza jaglana z musem", "🥣")]
 def emo(n):
     for rx, e in EMO:
         if re.search(rx, n, re.I): return e
-    return "🍲"
+    return ""
 def cp(e): return "-".join(f"{ord(c):x}" for c in e if ord(c) != 0xFE0F)
 
 SWEET_ING = {"czekolada", "kakao", "dzem", "miod", "erytrytol", "daktyle", "budyn", "kisiel", "galaretka"}
 recipes = []
+STRONG = set("🍕🍦🍓🍎🥤🥧🍪🧁🧇🥞🍮🍒🍊🍲🍝🥟🌭🍔🍟🌯🥪🍳🥣")   # dania z jednoznacznym emoji
+DRAWN = [(r"kopytk", "kopytka"), (r"kluski", "kluski"), (r"placki ziemniaczane", "placki")]
+MEAT = ["kurczak","udka","indyk","mielone","schab","wolowina","boczek","szynka","kielbasa","parowki","kabanosy","losos","dorsz","tunczyk","krewetki","paluszki_rybne","tofu"]
+CARB = ["ziemniaki","frytki_mroz","ryz","makaron","kasza","kasza_jaglana","kasza_manna","kuskus","bataty","chleb","bulki","tortilla","pierogi_mroz","platki"]
+MINOR = {"maka","maslo","smietana","smietanka","cebula","czosnek","bulion","sol","olej","cukier","proszek","cynamon","curry","soja","musztarda",
+         "majonez","bulka_tarta","mleko","natka","koperek","szczypiorek","woda","jajka","imbir","passata","kokos","ketchup"}
+def dish_image(r):
+    n = r["n"]
+    for rx, key in DRAWN:
+        if re.search(rx, n, re.I): return ("draw", key)
+    e = emo(n)
+    if e in STRONG: return ("emoji", e)
+    ing = list(r["i"])
+    meat = [k for k in ing if k in MEAT]; carb = [k for k in ing if k in CARB]
+    other = [k for k in ing if k not in MEAT and k not in CARB and k not in MINOR]
+    pick = (meat[:1] + carb[:1] + other)[:3]
+    if len(pick) < 2: pick += [k for k in ing if k not in pick and k in ("jajka", "ketchup", "passata")][:2 - len(pick)]
+    if not pick: pick = ing[:1]
+    return ("plate", pick)
+
 def add(r, gr):
     e = emo(r["n"])
     sweet = 1 if ("d" in r["m"] or SWEET_ING & set(r["i"])) else 0
     for k in list(r["i"]) + list(r.get("o", {})): assert k in P, (r["n"], k)
-    recipes.append({"n": r["n"], "e": cp(e), "m": r["m"], "t": r["t"], "s": r["s"], "k": r["k"], "i": r["i"], "o": r.get("o", {}),
-                    "st": r["st"], "gr": gr, "sw": sweet})
+    kind, val = dish_image(r)
+    im = "e-" + cp(val) if kind == "emoji" else "d-" + re.sub(r"[^a-z0-9]+", "-", r["n"].lower().translate(str.maketrans("ąćęłńóśźż", "acelnoszz"))).strip("-")
+    recipes.append({"n": r["n"], "im": im, "m": r["m"], "t": r["t"], "s": r["s"], "k": r["k"], "i": r["i"], "o": r.get("o", {}),
+                    "st": r["st"], "gr": gr, "sw": sweet, "_img": (kind, val)})
+
 for r in src["ALLR"]:
     kid = "dzieci" in r["g"]
     if kid or (r.get("b") and r["n"] not in SKIP) or r["n"] in EXTRA:
         add(r, "kids" if kid else ("base" if r.get("b") else "more"))
 for r in products.NEW_RECIPES: add(r, "kids")
+import imagegen
+imagegen.OUT = os.path.join(OUT, "img")
+os.makedirs(os.path.join(OUT, "img"), exist_ok=True)
+for r in recipes:
+    kind, val = r.pop("_img")
+    path = os.path.join(OUT, "img", r["im"] + ".webp")
+    if kind == "emoji":
+        if not os.path.exists(path): imagegen.save(imagegen.emoji(val, imagegen.N).resize((imagegen.SIZE, imagegen.SIZE)), r["im"])
+    elif kind == "draw": imagegen.dish_drawn(val).resize((imagegen.SIZE, imagegen.SIZE), imagegen.Image.LANCZOS).save(path, "WEBP", quality=88, method=6)
+    else: imagegen.plate_of([PT[k]["img"] for k in val]).resize((imagegen.SIZE, imagegen.SIZE), imagegen.Image.LANCZOS).save(path, "WEBP", quality=88, method=6)
 data = {"P": P, "R": recipes, "ALG": src["ALG"]}
 print(len(recipes), "przepisów,", len(P), "produktów,", sum(1 for v in P.values() if v[9]), "słów do pisowni")
 

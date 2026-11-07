@@ -9,7 +9,7 @@ jajka|Jajka|🥚|L|b|egg|Ei|huevo|jajko|jajek
 mleko|Mleko|🥛|L|w|milk|Milch|leche|mleko|
 maslo|Masło|🧈|L|y|butter|Butter|mantequilla|masło|
 ser_zolty|Ser żółty|🧀|L|y|cheese|Käse|queso|ser|
-twarog|Twaróg|p:block:#FFFFFF:🐄|L|w|cottage cheese|Quark|requesón|twaróg|
+twarog|Twaróg|t:🧀:0,0.06,1.12|L|w|cottage cheese|Quark|requesón|twaróg|
 smietana|Śmietana|p:cup:#DCEBFF:🥛|L|w|sour cream|Sauerrahm|nata agria|śmietana|
 smietanka|Śmietanka|p:carton:#FFFFFF:🐄|L|w|cream|Sahne|nata|śmietanka|
 jogurt|Jogurt naturalny|p:cup:#FFFFFF:🥄|L|w|yogurt|Joghurt|yogur|jogurt|jogurtów
@@ -19,7 +19,7 @@ serek_hom|Serek waniliowy|p:cup:#FDE68A:🍦|L|y|vanilla cheese|Vanillequark|que
 kefir|Kefir|p:bottle:#FFFFFF:🐄|L|w|kefir|Kefir|kéfir|kefir|
 serek_wiejski|Serek wiejski|p:tub:#D1FAE5:🐄|L|w|cottage cheese|Hüttenkäse|queso fresco|serek|
 ser_topiony|Serek topiony|p:tub:#FEF3C7:🧀|L|y|cheese spread|Schmelzkäse|queso fundido|serek|
-mozzarella|Mozzarella|p:bag:#FFFFFF:🧀|L|w|mozzarella|Mozzarella|mozzarella|mozzarella|
+mozzarella|Mozzarella|d:mozzarella|L|w|mozzarella|Mozzarella|mozzarella|mozzarella|
 feta|Feta|p:block:#DBEAFE:🧀|L|w|feta|Feta|queso feta|feta|
 parmezan|Parmezan|t:🧀:0,0.6,0.95|L|y|parmesan|Parmesan|parmesano|parmezan|
 serek_smietankowy|Serek śmietankowy|p:tub:#FFFFFF:🧀|L|w|cream cheese|Frischkäse|queso crema|serek|
@@ -91,8 +91,8 @@ bulki|Bułki|🥖|S|b|bread roll|Brötchen|panecillo|bułka|bułek
 rogal|Rogaliki|🥐|S|b|croissant|Croissant|cruasán|rogalik|rogalików
 bulka_tarta|Bułka tarta|p:bag:#E8C89A:🍞|S|b|breadcrumbs|Paniermehl|pan rallado|bułka|
 tortilla|Tortille|🫓|S|w|tortilla|Tortilla|tortilla|tortilla|tortilli
-makaron|Makaron|p:bag:#FFE58A:🍝|S|y|pasta|Nudeln|pasta|makaron|
-ryz|Ryż|p:bag:#FFFFFF:🍚|S|w|rice|Reis|arroz|ryż|
+makaron|Makaron|🍝|S|-|pasta|Nudeln|pasta|makaron|
+ryz|Ryż|🍚|S|-|rice|Reis|arroz|ryż|
 kasza|Kasza gryczana|p:bag:#C89B6D:🌾|S|b|buckwheat|Buchweizen|trigo sarraceno|kasza|
 kasza_jaglana|Kasza jaglana|p:bag:#FFD34D:🌾|S|y|millet|Hirse|mijo|kasza|
 kasza_manna|Kasza manna|p:bag:#F5EBD8:🌾|S|w|semolina|Grieß|sémola|kasza|
@@ -195,6 +195,30 @@ NEW_RECIPES = [
  {"n":"Naleśniki z dżemem","m":"sd","t":30,"s":3,"k":380,"i":{"maka":"200 g","mleko":"300 ml","jajka":"2 szt.","dzem":"4 łyżki"},"o":{},
   "st":["Zmiksuj mąkę, mleko, jajka i szczyptę soli.","Smaż cienkie naleśniki na rozgrzanej patelni.","Posmaruj dżemem i zwiń."]},
 ]
+
+# bardzo proste dania „na szybko” (v6)
+SIMPLE = [
+ ("Frytki z ketchupem","ok",20,2,420,{"frytki_mroz":"400 g","ketchup":"4 łyżki"},{},["Rozgrzej piekarnik do 220°C (dorosły).","Rozłóż frytki na blasze i piecz około 18 minut, w połowie przewróć.","Podawaj z ketchupem."]),
+ ("Frytki z parówkami","ok",20,2,560,{"frytki_mroz":"400 g","parowki":"4 szt.","ketchup":"4 łyżki"},{"ogorek":"do podania"},["Upiecz frytki w piekarniku (ok. 18 minut).","Parówki podgrzej w gorącej wodzie przez 4 minuty.","Podawaj z ketchupem."]),
+ ("Nuggetsy z frytkami","o",30,2,620,{"kurczak":"300 g","jajka":"1 szt.","bulka_tarta":"5 łyżek","frytki_mroz":"400 g"},{"ketchup":"do podania"},["Pokrój kurczaka w kawałki, obtocz w jajku i bułce tartej.","Upiecz nuggetsy i frytki w piekarniku w 200°C przez ok. 20 minut."]),
+ ("Parówki z bułką i ketchupem","sk",7,1,380,{"parowki":"2 szt.","bulki":"1 szt.","ketchup":"1 łyżka"},{"musztarda":"odrobina"},["Podgrzej parówki w gorącej wodzie przez 4 minuty.","Podawaj z bułką i ketchupem."]),
+ ("Kanapki z serem","sk",5,1,330,{"chleb":"2 kromki","ser_zolty":"2 plastry"},{"maslo":"cienko","pomidory":"kilka plasterków"},["Posmaruj chleb masłem.","Połóż plasterki sera."]),
+ ("Kanapki z szynką","sk",5,1,300,{"chleb":"2 kromki","szynka":"2 plastry"},{"maslo":"cienko","ogorek":"kilka plasterków"},["Posmaruj chleb masłem.","Połóż szynkę."]),
+ ("Chleb z masłem i dżemem","sd",3,1,280,{"chleb":"2 kromki","dzem":"2 łyżeczki"},{"maslo":"cienko"},["Posmaruj chleb masłem i dżemem."]),
+ ("Chleb z masłem i miodem","s",3,1,270,{"chleb":"2 kromki","miod":"2 łyżeczki"},{"maslo":"cienko"},["Posmaruj chleb masłem i miodem."]),
+ ("Tosty z serem","sk",8,1,360,{"chleb":"2 kromki","ser_zolty":"2 plastry"},{"ketchup":"do podania"},["Włóż ser między kromki.","Opiecz w tosterze albo na patelni (dorosły) 3–4 minuty."]),
+ ("Ziemniaki z jajkiem sadzonym","o",25,2,430,{"ziemniaki":"600 g","jajka":"4 szt."},{"ogorek":"1 szt.","koperek":"do posypania"},["Ugotuj ziemniaki w osolonej wodzie (ok. 20 minut).","Usmaż jajka sadzone.","Podawaj z ogórkiem albo mizerią."]),
+ ("Makaron z masłem i serem","o",15,2,480,{"makaron":"200 g","ser_zolty":"60 g"},{"maslo":"20 g"},["Ugotuj makaron.","Wymieszaj z masłem i startym serem."]),
+ ("Makaron z ketchupem i serem","o",15,2,470,{"makaron":"200 g","ketchup":"4 łyżki","ser_zolty":"50 g"},{},["Ugotuj makaron.","Wymieszaj z ketchupem i posyp startym serem."]),
+ ("Kiełbaska z chlebem","k",10,1,420,{"kielbasa":"100 g","chleb":"1 kromka"},{"ketchup":"do podania","ogorek_kiszony":"1 szt."},["Podsmaż albo podgrzej kiełbaskę (dorosły).","Podawaj z chlebem i ketchupem."]),
+ ("Jogurt z bananem","sd",3,1,200,{"jogurt":"1 kubek","banan":"1 szt."},{"miod":"1 łyżeczka"},["Pokrój banana w plasterki (nożyk – dorosły).","Wymieszaj z jogurtem."]),
+ ("Banan z masłem orzechowym","d",3,1,230,{"banan":"1 szt.","maslo_orz":"1 łyżka"},{},["Obierz banana.","Maczaj w maśle orzechowym."]),
+ ("Lody z owocami","d",5,2,260,{"lody":"4 gałki","truskawki":"garść"},{"borowki":"garść"},["Nałóż lody do miseczek.","Dodaj umyte owoce."]),
+ ("Jajko na twardo z chlebem","sk",12,1,280,{"jajka":"2 szt.","chleb":"1 kromka"},{"szczypiorek":"do posypania","maslo":"cienko"},["Gotuj jajka 9 minut (dorosły).","Ostudź w zimnej wodzie, obierz i podawaj z chlebem."]),
+ ("Pomidory z serem","k",5,1,250,{"pomidory":"2 szt.","ser_zolty":"40 g"},{"chleb":"1 kromka"},["Pokrój pomidory i ser (nożyk – dorosły).","Ułóż na talerzu."]),
+]
+for n, m, t, s_, k, i, o, st in SIMPLE:
+    NEW_RECIPES.append({"n": n, "m": m, "t": t, "s": s_, "k": k, "i": i, "o": o, "st": st})
 
 def parse():
     out = {}
