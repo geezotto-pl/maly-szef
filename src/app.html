@@ -147,6 +147,7 @@ body.big .tile .l{font-size:15px;color:var(--ink)}
 .rlist .ri img{width:38px;height:38px;flex:0 0 auto}
 .rlist .ri .t{flex:1;min-width:0}
 .rlist .ri .t b{display:block;font-size:15px}
+.approve-list .ri{cursor:pointer}.approve-list .ri input{pointer-events:none}
 details.card summary{font:800 20px "Baloo 2",sans-serif;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center}
 details.card summary::-webkit-details-marker{display:none}
 details.card summary::after{content:"▾";color:var(--mut);margin-left:8px}
@@ -211,7 +212,7 @@ const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 // P[id] = [nazwa, strefa, kolor, en, de, es, słowo, dopełniacz l.mn., błędne zapisy, podpowiedź pisowni]
 const P=D.P, R=D.R;
 const pimg=k=>`img/${k}.webp`, eimg=c=>`img/e-${c}.webp`;
-const ZONES={L:["Lodówka","🧊"],V:["Warzywa","🥕"],F:["Owoce","🍎"],S:["Szafka","🗄️"],C:["Słodycze","🍪"],Z:["Zamrażarka","❄️"]};
+const ZONES={L:["Lodówka","🧊","do lodówki"],V:["Warzywa","🥕","do warzyw"],F:["Owoce","🍎","do owoców"],S:["Szafka","🗄️","do szafki"],C:["Słodycze","🍪","do słodyczy"],Z:["Zamrażarka","❄️","do zamrażarki"]};
 const COL={r:["czerwony","#EF4444","red","rot","rojo"],y:["żółty","#FACC15","yellow","gelb","amarillo"],g:["zielony","#22C55E","green","grün","verde"],
   o:["pomarańczowy","#FB923C","orange","orange","naranja"],w:["biały","#FFFFFF","white","weiß","blanco"],b:["brązowy","#92582F","brown","braun","marrón"],
   p:["fioletowy","#8B5CF6","purple","lila","morado"],k:["różowy","#F9A8D4","pink","rosa","rosa"]};
@@ -474,13 +475,13 @@ function startHunt(team,leader){
   const prods=huntProducts();
   if(!prods.length){toast("Brak produktów – poproś rodzica o ustawienia");return}
   const zones=Object.keys(ZONES).filter(z=>S.zones.includes(z)&&prods.some(k=>P[k][1]===z));
-  H={found:new Set(),zone:zones[0],zones,prods,stars:0,since:0,next:2,turn:0,lastType:""};
+  H={found:new Set(),zone:zones[0],zones,prods,stars:0,since:0,next:2,turn:0,oth:-1,lastType:""};
   show("hunt");renderHunt();
   $("u-lead").innerHTML=many()?`<span class="av" style="background:${KIDCOL[LEADER%4]};font-size:15px"><img src="${kidImg(LEADER)}" alt="">👑 ${esc(kid(LEADER).name)}</span>`:"";
   const nm=names(TEAM);
-  say(`${nm?nm+", ":""}${many()?`szukajcie razem! Prowadzi ${kid(LEADER).name}`:"szukaj"}! Zajrzyj: ${ZONES[H.zone][0].toLowerCase()}. Dotknij tego, co ${many()?"znajdziecie":"znajdziesz"}!`,250);
+  say(`${nm?nm+", ":""}${many()?`szukajcie razem! Prowadzi ${kid(LEADER).name}`:"szukaj"}! ${many()?"Zajrzyjcie":"Zajrzyj"} ${ZONES[H.zone][2]}. Dotknij tego, co ${many()?"znajdziecie":"znajdziesz"}!`,250);
 }
-function sayZone(){say(`${ZONES[H.zone][0]}. Dotknij tego, co ${many()?"znajdziecie":"znajdziesz"}!`)}
+function sayZone(){say(`${many()?"Zajrzyjcie":"Zajrzyj"} ${ZONES[H.zone][2]}. Dotknij tego, co ${many()?"znajdziecie":"znajdziesz"}!`)}
 function renderHunt(){
   $("u-zones").innerHTML=H.zones.map(z=>{const n=[...H.found].filter(k=>P[k][1]===z).length;
     return `<button data-z="${z}" class="${z===H.zone?"on":""}">${ZONES[z][1]} ${ZONES[z][0]}${n?` <b>${n}</b>`:""}</button>`}).join("");
@@ -509,18 +510,30 @@ function renderZoneCounts(){$("u-zones").querySelectorAll("button").forEach(b=>{
   b.innerHTML=`${ZONES[z][1]} ${ZONES[z][0]}${n?` <b>${n}</b>`:""}`})}
 
 /* ---------- MINI-ZADANIA (zawsze o produkcie, który dziecko właśnie znalazło) ---------- */
+function nextWho(){ // prowadzący dostaje dwa zadania na trzy, pozostali dzieci po kolei to trzecie
+  if(!many())return TEAM[0];
+  H.turn++;
+  if(H.turn%3)return LEADER;
+  const others=TEAM.filter(i=>i!==LEADER);H.oth=(H.oth||0)+1;return others[H.oth%others.length];
+}
 function miniTask(k){
-  const who=TEAM[H.turn%TEAM.length];H.turn++;
-  const big=kid(LEADER).level==="big",p=P[k],types=[];
-  if(hasLang()&&p[3+LANGS[S.lang][2]-3])types.push(big?"transl":"word");
-  if(p[7])types.push("count");
-  if(p[2])types.push("color");
-  if(big&&p[9])types.push("spell","spell");           // pisownia częściej dla starszych
-  if(!big&&!DIGRAPH.test(p[6])&&LETTERS.includes(p[6][0].toUpperCase()))types.push("letter");
+  const who=nextWho();
+  const big=kid(who).level==="big",p=P[k],L=hasLang()&&p[LANGS[S.lang][2]],types=[];
+  if(big){ // 7–10 lat: tłumaczenie, pisownia, kolor w obcym języku
+    if(L)types.push("transl","transl");
+    if(p[9])types.push("spell","spell");
+    if(L&&p[2])types.push("colorword");
+    if(!types.length&&p[2])types.push("color");
+  }else{   // 4–7 lat: liczenie, kolor, pierwsza litera, czasem słówko do powtórzenia
+    if(p[7])types.push("count","count");
+    if(p[2])types.push("color","color");
+    if(!DIGRAPH.test(p[6])&&LETTERS.includes(p[6][0].toUpperCase()))types.push("letter");
+    if(L)types.push("word");
+  }
   if(!types.length){say(p[0]);return}
-  let t=rnd(types);if(t===H.lastType&&types.length>1)t=rnd(types.filter(x=>x!==t));H.lastType=t;
+  let t=rnd(types);if(t===H.lastType&&new Set(types).size>1)t=rnd(types.filter(x=>x!==t));H.lastType=t;
   snd("pop");
-  ({word:taskWord,transl:taskTransl,count:taskCount,color:taskColor,spell:taskSpell,letter:taskLetter})[t](k,who);
+  ({word:taskWord,transl:taskTransl,count:taskCount,color:taskColor,colorword:taskColorWord,spell:taskSpell,letter:taskLetter})[t](k,who);
 }
 const fw=k=>P[k][LANGS[S.lang][2]];
 const callName=who=>many()?kid(who).name+", ":"";
@@ -574,6 +587,16 @@ function taskColor(k,who){ // jakiego koloru jest ten produkt?
       say(parts);finishTask(1,null)}
     else{wrong(b);say(`To jest ${COL[b.dataset.c][0]}. Spróbuj jeszcze raz!`)}});
 }
+function taskColorWord(k,who){ // dla starszych: kolor produktu w obcym języku
+  const [ln,code,idx]=LANGS[S.lang],c=P[k][2],sp=P[k][6];
+  const opts=shuffle([c,...shuffle(Object.keys(COL).filter(x=>x!==c)).slice(0,2)]);
+  sheet(k,who,`<h2>Jaki to kolor po ${ln}?</h2><div class="word" style="color:var(--ink);font-size:32px">${esc(cap(sp))}</div>
+    <div class="opts txt">${opts.map(x=>`<button data-c="${x}"><span style="display:inline-block;width:22px;height:22px;border-radius:50%;background:${COL[x][1]};border:2px solid #0002;vertical-align:-3px;margin-right:8px"></span>${esc(COL[x][idx-1])}</button>`).join("")}</div>`);
+  say(`${callName(who)}jakiego koloru jest ${sp}? Powiedz po ${ln}!`);
+  $("modal").querySelectorAll(".opts button").forEach(b=>b.onclick=()=>{
+    if(b.dataset.c===c){b.classList.add("ok");say([[`${rnd(PRAISE)} ${COL[c][0]} to po ${ln}:`,"pl-PL"],[COL[c][idx-1],code]]);H.stars+=1;finishTask(1,null)}
+    else wrong(b)});
+}
 function taskSpell(k,who){ // jak się pisze? (ó/u, rz/ż, ch/h…)
   const sp=P[k][6],opts=shuffle([sp,...shuffle(P[k][8]).slice(0,2)]);
   sheet(k,who,`<h2>Jak się pisze?</h2><p class="mut">Wybierz dobry zapis</p>
@@ -616,12 +639,12 @@ function renderApprove(){
   const draw=()=>{
     $("approve").innerHTML=`<div class="top"><button class="ico-btn" id="a-back">⬅️</button><b class="big" style="font-size:22px">Wybierz ${S.n===2?"2":"2–3"} dania</b><span style="width:48px"></span></div>
     <p class="mut small">Znaleziono ${H.found.size} produktów. Zaznacz dania, które możesz dziś zrobić. ${many()?"Dzieci wybiorą":"Dziecko wybierze"} jedno z nich.</p>
-    <div class="card rlist">${c.map(x=>`<div class="ri" data-n="${esc(x.r.n)}"><img src="${eimg(x.r.e)}" alt=""><span class="t"><b>${esc(x.r.n)}</b>
+    <div class="card rlist approve-list">${c.map(x=>`<div class="ri" data-n="${esc(x.r.n)}"><img src="${eimg(x.r.e)}" alt=""><span class="t"><b>${esc(x.r.n)}</b>
       <span class="small ${x.miss.length?"miss":"have"}">${x.miss.length?"brakuje: "+x.miss.map(k=>P[k]?P[k][0]:k).join(", "):"masz wszystko"}</span>
       <span class="small mut"> · ${x.r.t} min</span></span><input type="checkbox" class="sw" ${sel.has(x.r.n)?"checked":""}></div>`).join("")}</div>
     <button class="btn gr huge" id="a-ok" ${sel.size?"":"disabled"}>👉 Pokaż ${many()?"dzieciom":"dziecku"} (${sel.size})</button>`;
     $("a-back").onclick=()=>{show("hunt");renderHunt()};
-    $("approve").querySelectorAll(".ri").forEach(d=>d.onclick=e=>{e.preventDefault();const n=d.dataset.n,cb=d.querySelector("input");
+    $("approve").querySelectorAll(".ri").forEach(d=>d.onclick=()=>{const n=d.dataset.n,cb=d.querySelector("input");
       if(sel.has(n))sel.delete(n);else{if(sel.size>=3){toast("Możesz wybrać najwyżej 3 dania – najpierw odznacz jedno");buzz(60);return}sel.add(n)}
       cb.checked=sel.has(n);snd("tap");$("a-ok").disabled=!sel.size;$("a-ok").textContent=`👉 Pokaż ${many()?"dzieciom":"dziecku"} (${sel.size})`});
     $("a-ok").onclick=()=>{H.picks=c.filter(x=>sel.has(x.r.n));snd("pop");renderChoose()};
