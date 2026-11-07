@@ -220,6 +220,25 @@ def drawn(name):
             d.ellipse((x - 38, y - 38, x + 38, y + 38), fill=(125, 66, 30, 255))
             d.arc((x - 26, y - 26, x + 26, y + 26), 0, 300, fill=(200, 140, 90, 255), width=6)
             d.arc((x - 13, y - 13, x + 13, y + 13), 60, 360, fill=(200, 140, 90, 255), width=5)
+    elif name == "dynia":
+        shadow(base, (110, 500, 530, 580))
+        blob(lambda dd: dd.rounded_rectangle((300, 70, 345, 190), 14), (110, 140, 60, 255), .3, .3)
+        for x0, x1, t in [(95, 335, .25), (305, 545, .25), (150, 340, .35), (300, 490, .35), (220, 420, .45)]:
+            blob(lambda dd, a=x0, b=x1: dd.ellipse((a, 170, b, 540)), (243, 128, 40, 255), t, .22)
+        d.arc((215, 175, 425, 540), 75, 105, fill=(200, 95, 25, 255), width=4)
+        highlight(base, (170, 250, 200, 400), 14, 90)
+        blob(lambda dd: dd.ellipse((330, 100, 430, 150)), (90, 160, 70, 255), .3, .25)
+    elif name == "natka":
+        shadow(base, (170, 540, 470, 600))
+        stems = [(320, 560, x, y) for x, y in [(190, 200), (250, 150), (320, 130), (390, 150), (450, 200), (220, 290), (420, 290)]]
+        for x0, y0, x1, y1 in stems:
+            d.line((x0, y0 - 120, x1, y1 + 40), fill=(120, 175, 80, 255), width=12)
+        d.line((320, 560, 320, 440), fill=(120, 175, 80, 255), width=40)
+        for _, _, x, y in stems:
+            for ang in (-50, 0, 50, 180):
+                r = math.radians(ang - 90); cx, cy = x + 42 * math.cos(r), y + 42 * math.sin(r)
+                blob(lambda dd, cx=cx, cy=cy: (dd.ellipse((cx - 38, cy - 30, cx + 38, cy + 30)), dd.polygon([(cx - 38, cy), (cx, cy - 46), (cx + 38, cy), (cx, cy + 40)])), (46, 150, 60, 255), .35, .25)
+        blob(lambda dd: dd.rounded_rectangle((282, 455, 358, 495), 12), (220, 60, 60, 255), .3, .2)
     else:
         raise ValueError(name)
     return base

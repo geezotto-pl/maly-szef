@@ -136,6 +136,7 @@ body.big .tile .l{font-size:15px;color:var(--ink)}
 .pin-dots{display:flex;justify-content:center;gap:14px;margin:16px 0}
 .pin-dots i{width:18px;height:18px;border-radius:50%;background:#fff;border:3px solid var(--or2)}
 .pin-dots i.on{background:var(--or);border-color:var(--or)}
+.pin-dots.bad{animation:shake .4s}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:300px;margin:0 auto}
 .keypad button{padding:16px 0;border-radius:18px;background:#fff;box-shadow:0 3px 0 var(--line);font:800 26px "Baloo 2",sans-serif}
 
@@ -177,7 +178,7 @@ details[open].card summary::after{content:"▴"}
     <button class="ico-btn" id="u-say" aria-label="Powtórz polecenie">🔊</button>
   </div>
   <div class="zones" id="u-zones"></div>
-  <div class="grid" id="u-grid"></div>
+  <div class="grid" id="u-grid"></div><div style="height:110px"></div>
   <div class="dock"><div>
     <div class="row" style="justify-content:space-between"><b class="big" style="font-size:18px" id="u-dishes"></b><span class="small mut" id="u-found"></span></div>
     <div class="progress"><i id="u-prog"></i></div>
@@ -310,23 +311,31 @@ function diverse(list,n){const out=[],seen=new Set();
 
 /* ---------- PIN ---------- */
 function askPin(title,onOk,setMode){
+  // okno rysujemy raz; przy wpisywaniu zmieniają się tylko kropki
   let v="",first="";
-  const draw=()=>{$("modal").innerHTML=`<div class="modal"><div class="sheet">
-    <h2>${esc(title)}</h2><p class="mut">${setMode?(first?"Wpisz PIN jeszcze raz":"Wymyśl 4 cyfry"):"Wpisz PIN rodzica"}</p>
-    <div class="pin-dots">${[0,1,2,3].map(i=>`<i class="${i<v.length?"on":""}"></i>`).join("")}</div>
+  $("modal").innerHTML=`<div class="modal"><div class="sheet">
+    <h2>${esc(title)}</h2><p class="mut" id="pin-sub">${setMode?"Wymyśl 4 cyfry":"Wpisz PIN rodzica"}</p>
+    <div class="pin-dots" id="pin-dots"><i></i><i></i><i></i><i></i></div>
     <div class="keypad">${[1,2,3,4,5,6,7,8,9].map(n=>`<button data-k="${n}">${n}</button>`).join("")}<button data-k="x">✖️</button><button data-k="0">0</button><button data-k="b">⌫</button></div>
     ${setMode?"":`<p style="margin-top:14px"><button class="small mut" data-k="f" style="text-decoration:underline">Nie pamiętam PIN-u</button></p>`}
   </div></div>`;
-  $("modal").querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;buzz(15);snd("tap");
+  const dots=()=>$("pin-dots").querySelectorAll("i").forEach((d,i)=>d.classList.toggle("on",i<v.length));
+  const shake=()=>{const d=$("pin-dots");d.classList.remove("bad");void d.offsetWidth;d.classList.add("bad")};
+  let busy=false;
+  $("modal").querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(busy)return;buzz(15);snd("tap");
     if(k==="x"){closeModal();return}
     if(k==="f"){forgotPin(onOk);return}
     if(k==="b")v=v.slice(0,-1);else if(v.length<4)v+=k;
-    draw();
-    if(v.length===4)setTimeout(()=>{
-      if(setMode){if(!first){first=v;v="";draw()}else if(first===v){S.pin=v;save();closeModal();onOk()}else{first="";v="";toast("PIN-y się różnią, spróbuj jeszcze raz");draw()}}
-      else if(v===S.pin){closeModal();onOk()}else{v="";snd("wrong");toast("Zły PIN");draw()}
-    },150)})};
-  draw();
+    dots();
+    if(v.length===4){busy=true;setTimeout(()=>{busy=false;
+      if(setMode){
+        if(!first){first=v;v="";$("pin-sub").textContent="Wpisz PIN jeszcze raz";dots()}
+        else if(first===v){S.pin=v;save();closeModal();onOk()}
+        else{first="";v="";$("pin-sub").textContent="PIN-y się różnią. Wymyśl 4 cyfry";snd("wrong");shake();dots()}
+      }else if(v===S.pin){closeModal();onOk()}
+      else{v="";snd("wrong");$("pin-sub").textContent="Zły PIN, spróbuj jeszcze raz";shake();dots()}
+    },180)}
+  });
 }
 function forgotPin(onOk){
   $("modal").innerHTML=`<div class="modal"><div class="sheet"><h2>Pytanie dla dorosłego</h2><p>Ile to <b>17 × 6</b>?</p>
@@ -412,12 +421,13 @@ function goHome(){
 }
 function pickTeam(){
   const sel=new Set(S.kids.map((_,i)=>i));
-  const draw=()=>{$("modal").innerHTML=`<div class="modal"><div class="sheet"><h2>Kto dziś szuka?</h2>
-    <div class="kidpick">${S.kids.map((k,i)=>`<button data-i="${i}" class="${sel.has(i)?"on":""}" style="color:${KIDCOL[i%4]}"><img src="${kidImg(i)}" alt="">${esc(k.name)}</button>`).join("")}</div>
-    <button class="btn huge" id="tp-go" ${sel.size?"":"disabled"}>🔍 Start!</button></div></div>`;
-    $("modal").querySelectorAll(".kidpick button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);snd("tap");say(kid(i).name);draw()});
-    $("tp-go").onclick=()=>{closeModal();startHunt([...sel].sort())}};
-  draw();say("Kto dziś szuka?");
+  $("modal").innerHTML=`<div class="modal"><div class="sheet"><h2>Kto dziś szuka?</h2>
+    <div class="kidpick">${S.kids.map((k,i)=>`<button data-i="${i}" class="on" style="color:${KIDCOL[i%4]}"><img src="${kidImg(i)}" alt="">${esc(k.name)}</button>`).join("")}</div>
+    <button class="btn huge" id="tp-go">🔍 Start!</button></div></div>`;
+  $("modal").querySelectorAll(".kidpick button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;sel.has(i)?sel.delete(i):sel.add(i);
+    b.classList.toggle("on",sel.has(i));$("tp-go").disabled=!sel.size;snd("tap");say(kid(i).name)});
+  $("tp-go").onclick=()=>{closeModal();startHunt([...sel].sort())};
+  say("Kto dziś szuka?");
 }
 
 /* ---------- POLOWANIE ---------- */
@@ -509,15 +519,16 @@ function taskTransl(k,who){ // jak jest po angielsku? (dla czytających)
 }
 function taskCount(k,who){ // policz dokładnie ten produkt
   let n=0;const cnt=P[k][7];
-  const draw=()=>{sheet(k,who,`<h2>Policz!</h2><div class="word" style="color:var(--ink);font-size:32px">Ile masz ${esc(cnt)}?</div>
+  sheet(k,who,`<h2>Policz!</h2><div class="word" style="color:var(--ink);font-size:32px">Ile masz ${esc(cnt)}?</div>
     <p class="mut small">Stuknij jeden obrazek za każdą sztukę.</p>
-    <div class="count">${Array.from({length:10},(_,i)=>`<button data-i="${i+1}" class="${i<n?"on":""}"><img src="${pimg(k)}" alt=""></button>`).join("")}</div>
-    <div class="numbig">${n}</div><button class="btn gr huge" id="t-ok" ${n?"":"disabled"} style="margin-top:10px">✅ Gotowe</button>`);
-    $("modal").querySelectorAll(".count button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;n=(i===n)?i-1:i;buzz(15);snd("tap");say(String(n||"zero"));draw()});
-    $("t-ok").onclick=()=>{const parts=[[`${n}! ${rnd(PRAISE)}`,"pl-PL"]];
-      if(hasLang()&&n<=10)parts.push([`Po ${LANGS[S.lang][0]}:`,"pl-PL"],[NUMS[S.lang][n],LANGS[S.lang][1]]);
-      say(parts);finishTask(1,null)}};
-  draw();say(`${callName(who)}ile masz ${cnt}? Policz!`);
+    <div class="count">${Array.from({length:10},(_,i)=>`<button data-i="${i+1}"><img src="${pimg(k)}" alt=""></button>`).join("")}</div>
+    <div class="numbig" id="t-n">0</div><button class="btn gr huge" id="t-ok" disabled style="margin-top:10px">✅ Gotowe</button>`);
+  const upd=()=>{$("modal").querySelectorAll(".count button").forEach((b,i)=>b.classList.toggle("on",i<n));$("t-n").textContent=n;$("t-ok").disabled=!n};
+  $("modal").querySelectorAll(".count button").forEach(b=>b.onclick=()=>{const i=+b.dataset.i;n=(i===n)?i-1:i;buzz(15);snd("tap");say(String(n||"zero"));upd()});
+  $("t-ok").onclick=()=>{const parts=[[`${n}! ${rnd(PRAISE)}`,"pl-PL"]];
+    if(hasLang()&&n<=10)parts.push([`Po ${LANGS[S.lang][0]}:`,"pl-PL"],[NUMS[S.lang][n],LANGS[S.lang][1]]);
+    say(parts);finishTask(1,null)};
+  say(`${callName(who)}ile masz ${cnt}? Policz!`);
 }
 function taskColor(k,who){ // jakiego koloru jest ten produkt?
   const c=P[k][2],opts=shuffle([c,...shuffle(Object.keys(COL).filter(x=>x!==c)).slice(0,2)]),sp=P[k][6];
@@ -577,8 +588,9 @@ function renderApprove(){
       <span class="small mut"> · ${x.r.t} min</span></span><input type="checkbox" class="sw" ${sel.has(x.r.n)?"checked":""}></div>`).join("")}</div>
     <button class="btn gr huge" id="a-ok" ${sel.size?"":"disabled"}>👉 Pokaż ${many()?"dzieciom":"dziecku"} (${sel.size})</button>`;
     $("a-back").onclick=()=>{show("hunt");renderHunt()};
-    $("approve").querySelectorAll(".ri").forEach(d=>d.onclick=e=>{e.preventDefault();const n=d.dataset.n;
-      if(sel.has(n))sel.delete(n);else{if(sel.size>=3){toast("Najwyżej 3 dania");return}sel.add(n)}snd("tap");draw()});
+    $("approve").querySelectorAll(".ri").forEach(d=>d.onclick=e=>{e.preventDefault();const n=d.dataset.n,cb=d.querySelector("input");
+      if(sel.has(n))sel.delete(n);else{if(sel.size>=3){toast("Najwyżej 3 dania");return}sel.add(n)}
+      cb.checked=sel.has(n);snd("tap");$("a-ok").disabled=!sel.size;$("a-ok").textContent=`👉 Pokaż ${many()?"dzieciom":"dziecku"} (${sel.size})`});
     $("a-ok").onclick=()=>{H.picks=c.filter(x=>sel.has(x.r.n));snd("pop");renderChoose()};
   };
   draw();

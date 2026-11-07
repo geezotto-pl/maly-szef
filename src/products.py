@@ -54,7 +54,7 @@ papryka|Papryka|🫑|V|g|pepper|Paprika|pimiento|papryka|papryk
 marchew|Marchewka|🥕|V|o|carrot|Karotte|zanahoria|marchewka|marchewek
 burak|Buraki|d:burak|V|p|beetroot|Rote Bete|remolacha|burak|buraków
 cukinia|Cukinia|t:🥒:0,1.1,0.75|V|g|courgette|Zucchini|calabacín|cukinia|cukinii
-dynia|Dynia|🎃|V|o|pumpkin|Kürbis|calabaza|dynia|
+dynia|Dynia|d:dynia|V|o|pumpkin|Kürbis|calabaza|dynia|
 brokul|Brokuł|🥦|V|g|broccoli|Brokkoli|brócoli|brokuł|
 kalafior|Kalafior|t:🥦:-75,0.25,1.25|V|w|cauliflower|Blumenkohl|coliflor|kalafior|
 fasolka|Fasolka szparagowa|🫛|V|g|green beans|grüne Bohnen|judías verdes|fasolka|
@@ -66,7 +66,7 @@ rukola|Rukola|🌿|V|g|rocket|Rucola|rúcula|rukola|
 rzodkiewka|Rzodkiewki|d:rzodkiewka|V|r|radish|Radieschen|rábano|rzodkiewka|rzodkiewek
 szczypiorek|Szczypiorek|🌱|V|g|chives|Schnittlauch|cebollino|szczypiorek|
 koperek|Koperek|🌿|V|g|dill|Dill|eneldo|koperek|
-natka|Natka pietruszki|🍀|V|g|parsley|Petersilie|perejil|natka|
+natka|Natka pietruszki|d:natka|V|g|parsley|Petersilie|perejil|natka|
 imbir|Imbir|🫚|V|y|ginger|Ingwer|jengibre|imbir|
 banan|Banany|🍌|F|y|banana|Banane|plátano|banan|bananów
 jablko|Jabłka|🍎|F|r|apple|Apfel|manzana|jabłko|jabłek
