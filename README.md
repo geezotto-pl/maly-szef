@@ -2,7 +2,7 @@
 
 Aplikacja dla rodziców niejadków. Dziecko (albo kilkoro dzieci razem) chodzi po kuchni i zaznacza, co znajdzie w lodówce i szafkach. Po drodze rozwiązuje mini-zadania: słówka po angielsku, kolory i liczenie. Rodzic zatwierdza 2–3 dania, a dziecko samo wybiera, co zje, i dostaje naklejkę.
 
-**Otwórz:** https://geezotto-pl.github.io/maly-szef/
+**Otwórz:** https://geezotto-pl.github.io/-maly-szef/
 
 ## Instalacja na telefonie
 - **iPhone:** otwórz link w Safari, stuknij **Udostępnij** i wybierz **Do ekranu początkowego**.
