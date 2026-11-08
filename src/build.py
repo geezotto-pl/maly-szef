@@ -58,7 +58,16 @@ Placuszki jogurtowe z borówkami|Pierogi ruskie|Kurczak z brokułem w sosie sero
 Parówki zapiekane w tortilli z serem|Quesadilla z kurczakiem|Placuszki dyniowe|Zapiekanka makaronowa z kurczakiem|Kurczak z ryżem z jednego garnka"""
 EXTRA = {x.strip() for x in EXTRA.split("|")}
 SKIP = {"Sałatka grecka", "Mizeria", "Surówka z kapusty"}
-EMO = [(r"pizz", "🍕"), (r"^lody", "🍦"), (r"szaszłyki owoc", "🍓"), (r"mus jabł", "🍎"), (r"koktajl|kakao", "🥤"), (r"szarlotk", "🥧"),
+# v7: proste dania z jajek, mleka, chleba itp. z „Co z lodówki?” – w grupie „Dla dzieci”
+KIDS_EXTRA = """Tosty francuskie|Jajko w okienku|Tost z masłem orzechowym i bananem|Smoothie bananowo-truskawkowe|Pieczone jabłka z cynamonem|
+Ryż na mleku z jabłkami|Lody bananowe|Kiełbasa z cebulką i ziemniakami|Makaron z szynką i groszkiem|Krem z zielonego groszku|Ryż z warzywami|
+Pudding z kaszy manny z malinami|Serek wiejski z truskawkami|Śniadaniowe burrito|Omlet na słodko z dżemem|Kanapki z twarożkiem i dżemem|
+Owsianka czekoladowa z malinami|Pieczone gruszki z miodem|Gorąca czekolada|Frittata z ziemniakami|Sałatka z makaronem i szynką|
+Placki twarogowe (serniczki)|Ciasteczka owsiane|Placki bananowo-kakaowe|Owsianka z gruszką i cynamonem|Koktajl malinowy|Ciasto w kubku|
+Twarożek z pomidorami i szczypiorkiem|Pancakes twarogowe|Twarożek z borówkami i orzechami|Pudding twarogowo-kakaowy"""
+KIDS_EXTRA = {x.strip() for x in KIDS_EXTRA.split("|")}
+EMO = [(r"tosty francuskie|jajko w okienku|frittata", ""), (r"ciasto w kubku", "🧁"), (r"pudding", "🍮"), (r"burrito", "🌯"),
+       (r"gorąca czekolada|smoothie", "🥤"), (r"placki (twarog|banan)", "🥞"), (r"pizz", "🍕"), (r"^lody", "🍦"), (r"szaszłyki owoc", "🍓"), (r"mus jabł", "🍎"), (r"koktajl|kakao", "🥤"), (r"szarlotk", "🥧"),
        (r"ciasteczk", "🍪"), (r"babecz|muffin", "🧁"), (r"gofr", "🧇"), (r"budyń", "🍮"), (r"kisiel|galaretk", "🍒"), (r"sałatka owoc", "🍊"),
        (r"zup|rosół|ogórkowa", "🍲"), (r"spaghetti|makaron|lasagne", "🍝"), (r"naleś|pancake|placuszk|racuch", "🥞"), (r"pierog", "🥟"),
        (r"parów", "🌭"), (r"burger", "🍔"), (r"frytk", "🍟"), (r"tortill|quesadill|roladki", "🌯"), (r"^(kanap|tost)|buźki|żołnierzyk|grzank", "🥪"),
@@ -102,8 +111,8 @@ def add(r, gr):
 
 for r in src["ALLR"]:
     kid = "dzieci" in r["g"]
-    if kid or (r.get("b") and r["n"] not in SKIP) or r["n"] in EXTRA:
-        add(r, "kids" if kid else ("base" if r.get("b") else "more"))
+    if kid or r["n"] in KIDS_EXTRA or (r.get("b") and r["n"] not in SKIP) or r["n"] in EXTRA:
+        add(r, "kids" if (kid or r["n"] in KIDS_EXTRA) else ("base" if r.get("b") else "more"))
 for r in products.NEW_RECIPES: add(r, "kids")
 import imagegen
 imagegen.OUT = os.path.join(OUT, "img")

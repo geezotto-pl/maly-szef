@@ -215,6 +215,9 @@ SIMPLE = [
  ("Banan z masłem orzechowym","d",3,1,230,{"banan":"1 szt.","maslo_orz":"1 łyżka"},{},["Obierz banana.","Maczaj w maśle orzechowym."]),
  ("Lody z owocami","d",5,2,260,{"lody":"4 gałki","truskawki":"garść"},{"borowki":"garść"},["Nałóż lody do miseczek.","Dodaj umyte owoce."]),
  ("Jajko na twardo z chlebem","sk",12,1,280,{"jajka":"2 szt.","chleb":"1 kromka"},{"szczypiorek":"do posypania","maslo":"cienko"},["Gotuj jajka 9 minut (dorosły).","Ostudź w zimnej wodzie, obierz i podawaj z chlebem."]),
+ ("Kanapki z jajkiem","sk",12,1,300,{"chleb":"2 kromki","jajka":"2 szt."},{"maslo":"cienko","szczypiorek":"do posypania"},["Ugotuj jajka na twardo (9 minut, dorosły).","Obierz, pokrój w plasterki i połóż na chlebie z masłem."]),
+ ("Naleśniki z cukrem","sd",30,3,350,{"maka":"200 g","mleko":"300 ml","jajka":"2 szt."},{"cukier":"do posypania"},["Zmiksuj mąkę, mleko, jajka i szczyptę soli.","Smaż cienkie naleśniki (dorosły).","Posyp cukrem i zwiń."]),
+ ("Mleko z płatkami owsianymi","s",5,1,280,{"platki":"40 g","mleko":"250 ml"},{"miod":"1 łyżeczka","banan":"½ szt."},["Podgrzej mleko.","Zalej płatki i odstaw na 2 minuty."]),
  ("Pomidory z serem","k",5,1,250,{"pomidory":"2 szt.","ser_zolty":"40 g"},{"chleb":"1 kromka"},["Pokrój pomidory i ser (nożyk – dorosły).","Ułóż na talerzu."]),
 ]
 for n, m, t, s_, k, i, o, st in SIMPLE:
